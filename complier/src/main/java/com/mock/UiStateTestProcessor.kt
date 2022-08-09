@@ -8,7 +8,6 @@ import com.mock.annotation.unique.UiStateTestUnique
 import com.mock.vo.*
 import com.mock.vo.DeclaredProperty
 import com.mock.vo.PrimitiveProperty
-import java.io.File
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
@@ -81,7 +80,6 @@ internal class UiStateTestProcessor : AbstractProcessor() {
          */
         val caseTreeList = buildUiStateTestTreeList(roundEnv)
         if (caseTreeList.isEmpty()) {
-//            File("UiTestMock").deleteRecursively()
             return true
         }
 

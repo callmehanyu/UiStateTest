@@ -7,6 +7,7 @@ import com.mock.util.toLowerCaseInFirst
 import com.mock.vo.Property
 import com.mock.vo.Tree
 import com.squareup.kotlinpoet.*
+import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import java.io.File
 import java.util.*
 import javax.annotation.processing.Messager
@@ -22,11 +23,11 @@ internal class SourceFileGenerator(
     private val messager: Messager,
 ) {
 
-    private val dir = File("UiTestMock")
+    private val dir = File("/Users/zhanghanyu01/Documents/GitHub/UiTest/app/src/main/java")
 
-    internal fun generateSourceFiles(treeList: List<Tree>) {
+    fun generateSourceFiles(treeList: List<Tree>) {
 
-        dir.deleteRecursively()
+//        dir.deleteRecursively()
 
         treeList.forEach {
 //            messager.printMessage(Diagnostic.Kind.NOTE, "generateSourceFiles")
@@ -35,10 +36,22 @@ internal class SourceFileGenerator(
     }
 
     private fun generateSourceFile(caseTree: Tree) {
-        // 写出 kt文件名 todo package
-        val file = FileSpec.builder("", "${caseTree.property.value}Complier")
+        // 写出 kt文件名
+        val file = FileSpec.builder("com.zhy.demo.mock", "${caseTree.property.value}Complier")
 
-//        messager.printMessage(Diagnostic.Kind.NOTE, "caseTree:"+caseTree.printAllString().joinToString(";"))
+        generateVal(caseTree, file)
+        generateList(caseTree, file)
+
+        // 生成目录；用于写入
+        dir.mkdirs()
+        file.build().writeTo(dir)
+    }
+
+    private fun generateVal(
+        caseTree: Tree,
+        file: FileSpec.Builder,
+    ) {
+//                messager.printMessage(Diagnostic.Kind.NOTE, "caseTree:"+caseTree.printAllString().joinToString(";"))
 
         caseTree.startTraverseCompletePath().forEachIndexed { index, propertyList ->
 
@@ -54,10 +67,6 @@ internal class SourceFileGenerator(
                 .build()
             file.addProperty(property)
         }
-
-        // 生成目录；用于写入
-        dir.mkdirs()
-        file.build().writeTo(dir)
     }
 
     private fun generateCodeBlockStack(caseTree: Tree, propertyList: List<Property>): CodeBlock {
@@ -72,6 +81,30 @@ internal class SourceFileGenerator(
             .add("\n)")
             .build()
         return codeBlock
+    }
+
+    private fun generateList(
+        caseTree: Tree,
+        file: FileSpec.Builder
+    ) {
+        val codeBlock = CodeBlock.builder()
+            .add("listOf(")
+            .apply {
+                caseTree.startTraverseCompletePath().forEachIndexed { index, list ->
+                    add("${caseTree.property.value.toLowerCaseInFirst()}_$index, ")
+                }
+            }
+            .add(")")
+            .build()
+        val property = PropertySpec.builder(
+            "${caseTree.property.value.toLowerCaseInFirst()}_List",
+            ClassName("kotlin.collections", "List").parameterizedBy(ClassName.bestGuess(caseTree.property.element.asType().toString())),
+        )
+            .addKdoc("${caseTree.property.element.asType()}_List")
+            // 初始化值
+            .initializer(codeBlock)
+            .build()
+        file.addProperty(property)
     }
 
     private fun buildLeftParenthesis(

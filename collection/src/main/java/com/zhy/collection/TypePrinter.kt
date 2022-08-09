@@ -1,4 +1,4 @@
-package com.zhy.collection.printer
+package com.zhy.collection
 
 /**
  * This interface defines how to generate mock code for a custom object type.

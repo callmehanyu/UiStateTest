@@ -1,4 +1,7 @@
+package com.zhy.demo.mock
+
 import com.zhy.unittest.TestUiStateLimit5
+import kotlin.collections.List
 
 /**
  * com.zhy.unittest.TestUiStateLimit5_0
@@ -119,3 +122,12 @@ public val testUiStateLimit5_14: TestUiStateLimit5 = TestUiStateLimit5(
     myEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
     hisEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
     )
+
+/**
+ * com.zhy.unittest.TestUiStateLimit5_List
+ */
+public val testUiStateLimit5_List: List<TestUiStateLimit5> = listOf(testUiStateLimit5_0,
+    testUiStateLimit5_1, testUiStateLimit5_2, testUiStateLimit5_3, testUiStateLimit5_4,
+    testUiStateLimit5_5, testUiStateLimit5_6, testUiStateLimit5_7, testUiStateLimit5_8,
+    testUiStateLimit5_9, testUiStateLimit5_10, testUiStateLimit5_11, testUiStateLimit5_12,
+    testUiStateLimit5_13, testUiStateLimit5_14, )

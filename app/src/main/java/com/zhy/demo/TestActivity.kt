@@ -9,7 +9,7 @@ import androidx.core.app.ActivityCompat
 import com.zhy.R
 import com.zhy.unittest.TestUiStateCollection1
 import com.zhy.viewmodelExt.getViewModel
-import com.zhy.collection.printer.writeMock
+import com.zhy.collection.writeMock
 
 class TestActivity : AppCompatActivity() {
 
@@ -27,9 +27,7 @@ class TestActivity : AppCompatActivity() {
 
         viewModel.uiState.observe(this) {
             // todo 生成 uistate
-            writeMock(this, it, 150,150)
-//            updateMockUiStateFile(this, TestActivity::class.simpleName, it)
-//            saveMockUiStateToLocal()
+//            writeMock(this, it, )
             handle(it)
         }
 

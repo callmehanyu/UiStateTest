@@ -1,4 +1,4 @@
-package com.zhy.collection.printer
+package com.zhy.collection
 
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction

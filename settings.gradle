@@ -1,5 +1,5 @@
 include ':complier'
 include ':annotation'
 include ':app'
-rootProject.name = "UiState"
+rootProject.name = "UiTest"
 include ':collection'

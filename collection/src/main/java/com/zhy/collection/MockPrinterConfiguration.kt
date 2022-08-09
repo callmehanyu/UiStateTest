@@ -1,4 +1,4 @@
-package com.zhy.collection.printer
+package com.zhy.collection
 
 /**
  * Set configuration details for how mock state is generated.

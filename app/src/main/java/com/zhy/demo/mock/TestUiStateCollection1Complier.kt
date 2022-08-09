@@ -1,4 +1,7 @@
+package com.zhy.demo.mock
+
 import com.zhy.unittest.TestUiStateCollection1
+import kotlin.collections.List
 
 /**
  * com.zhy.unittest.TestUiStateCollection1_0
@@ -149,3 +152,13 @@ public val testUiStateCollection1_14: TestUiStateCollection1 = TestUiStateCollec
     tv1Cnt = TODO(), 
     btn1String = TODO(), 
     )
+
+/**
+ * com.zhy.unittest.TestUiStateCollection1_List
+ */
+public val testUiStateCollection1_List: List<TestUiStateCollection1> =
+    listOf(testUiStateCollection1_0, testUiStateCollection1_1, testUiStateCollection1_2,
+    testUiStateCollection1_3, testUiStateCollection1_4, testUiStateCollection1_5,
+    testUiStateCollection1_6, testUiStateCollection1_7, testUiStateCollection1_8,
+    testUiStateCollection1_9, testUiStateCollection1_10, testUiStateCollection1_11,
+    testUiStateCollection1_12, testUiStateCollection1_13, testUiStateCollection1_14, )

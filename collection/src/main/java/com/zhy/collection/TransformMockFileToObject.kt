@@ -1,4 +1,4 @@
-package com.zhy.collection.printer
+package com.zhy.collection
 
 import kotlin.reflect.KMutableProperty1
 import kotlin.reflect.full.memberProperties

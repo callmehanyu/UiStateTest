@@ -1,4 +1,4 @@
-package com.zhy.collection.printer
+package com.zhy.collection
 
 import android.content.Context
 import android.util.Log
@@ -7,14 +7,22 @@ import java.io.File
 import java.lang.StringBuilder
 
 /**
+ * The command line tooling looks for output with these tags - so it is important that these are not changed
+ * without also updating that script.
+ */
+internal const val RESULTS_TAG: String = "MOCK_PRINTER_RESULTS"
+private const val ERROR_TAG = "MOCK_PRINTER_ERROR"
+private const val INFO_TAG = "MOCK_PRINTER_INFO"
+
+/**
  * 执行前，请检查是否更新了最新的uistate mock文件
+ * todo 重复
  */
 @WorkerThread
 fun <T : Any> writeMock(
     context: Context,
     objectToMock: T,
-    listTruncationThreshold: Int,
-    stringTruncationThreshold: Int
+    cacheMockList: List<T>,
 ) {
     val pageName = objectToMock::class.simpleName
     if (pageName.isNullOrBlank()) {
@@ -30,10 +38,7 @@ fun <T : Any> writeMock(
         printMockFile(
             context,
             objectToMock,
-            listTruncationThreshold,
-            stringTruncationThreshold
         )
-        // todo 导出 去重
     } catch (e: Throwable) {
         Log.e(ERROR_TAG, "Error creating mavericks mock code for $objectName", e)
     }
@@ -50,15 +55,11 @@ fun <T : Any> writeMock(
 private fun <T : Any> printMockFile(
     context: Context,
     instanceToMock: T,
-    listTruncationThreshold: Int,
-    stringTruncationThreshold: Int
 ) {
-    fun Int.maxIfLTEZero() = if (this <= 0) Integer.MAX_VALUE else this
-
     val code = ConstructorCodeGenerator(
         instanceToMock,
-        listTruncationThreshold.maxIfLTEZero(),
-        stringTruncationThreshold.maxIfLTEZero(),
+        300,
+        3,
         MockableMavericks.mockPrinterConfiguration.customTypePrinters
     )
 
@@ -76,11 +77,9 @@ private fun <T : Any> printMockFile(
     Log.d(RESULTS_TAG, file.canonicalPath)
 }
 
-
-/**
- * The command line tooling looks for output with these tags - so it is important that these are not changed
- * without also updating that script.
- */
-internal const val RESULTS_TAG: String = "MOCK_PRINTER_RESULTS"
-private const val ERROR_TAG = "MOCK_PRINTER_ERROR"
-private const val INFO_TAG = "MOCK_PRINTER_INFO"
+//private fun<T : Any> checkIfIllagel(
+//    context: Context,
+//    instanceToMock: T,
+//): Boolean {
+//
+//}

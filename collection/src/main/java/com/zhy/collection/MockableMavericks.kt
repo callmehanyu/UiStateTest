@@ -1,4 +1,4 @@
-package com.zhy.collection.printer
+package com.zhy.collection
 
 /**
  * Entry point for setting up Mavericks for the app in a mockable way.
