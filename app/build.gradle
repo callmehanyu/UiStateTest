@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.gray.annotation_demo"
+        applicationId "com.zhy"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -42,11 +42,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation project(path: ':annotation')
-    implementation project(path: ':runtime')
     kapt project(path: ':complier')
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0"
+
+    implementation project(path: ':collection')
+
 }

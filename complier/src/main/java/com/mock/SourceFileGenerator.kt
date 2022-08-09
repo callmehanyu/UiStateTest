@@ -36,7 +36,7 @@ internal class SourceFileGenerator(
 
     private fun generateSourceFile(caseTree: Tree) {
         // 写出 kt文件名 todo package
-        val file = FileSpec.builder("", "${caseTree.property.value}Mock")
+        val file = FileSpec.builder("", "${caseTree.property.value}Complier")
 
 //        messager.printMessage(Diagnostic.Kind.NOTE, "caseTree:"+caseTree.printAllString().joinToString(";"))
 

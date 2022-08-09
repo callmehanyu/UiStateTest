@@ -3,6 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="Annotation.app" target="11" />
+      <module name="Annotation.collection" target="11" />
+      <module name="UiState.app" target="11" />
+      <module name="UiState.collection" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
