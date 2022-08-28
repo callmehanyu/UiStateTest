@@ -9,8 +9,6 @@ import kotlin.collections.List
 public val testUiStateCollection1_0: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NORMAL,
     hisEnum = com.zhy.unittest.MyEnum.NORMAL,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -19,8 +17,6 @@ public val testUiStateCollection1_0: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_1: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NORMAL,
     hisEnum = com.zhy.unittest.MyEnum.SPRING,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -29,8 +25,6 @@ public val testUiStateCollection1_1: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_2: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NORMAL,
     hisEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -39,8 +33,6 @@ public val testUiStateCollection1_2: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_3: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NORMAL,
     hisEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -49,8 +41,6 @@ public val testUiStateCollection1_3: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_4: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.SPRING,
     hisEnum = com.zhy.unittest.MyEnum.NORMAL,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -59,8 +49,6 @@ public val testUiStateCollection1_4: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_5: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.SPRING,
     hisEnum = com.zhy.unittest.MyEnum.SPRING,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -69,8 +57,6 @@ public val testUiStateCollection1_5: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_6: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.SPRING,
     hisEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -79,8 +65,6 @@ public val testUiStateCollection1_6: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_7: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.SPRING,
     hisEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -89,8 +73,6 @@ public val testUiStateCollection1_7: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_8: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
     hisEnum = com.zhy.unittest.MyEnum.NORMAL,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -99,8 +81,6 @@ public val testUiStateCollection1_8: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_9: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
     hisEnum = com.zhy.unittest.MyEnum.SPRING,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -109,8 +89,6 @@ public val testUiStateCollection1_9: TestUiStateCollection1 = TestUiStateCollect
 public val testUiStateCollection1_10: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
     hisEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -119,8 +97,6 @@ public val testUiStateCollection1_10: TestUiStateCollection1 = TestUiStateCollec
 public val testUiStateCollection1_11: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
     hisEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -129,8 +105,6 @@ public val testUiStateCollection1_11: TestUiStateCollection1 = TestUiStateCollec
 public val testUiStateCollection1_12: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
     hisEnum = com.zhy.unittest.MyEnum.SPRING,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -139,8 +113,6 @@ public val testUiStateCollection1_12: TestUiStateCollection1 = TestUiStateCollec
 public val testUiStateCollection1_13: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
     hisEnum = com.zhy.unittest.MyEnum.NEW_YEAR,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**
@@ -149,8 +121,6 @@ public val testUiStateCollection1_13: TestUiStateCollection1 = TestUiStateCollec
 public val testUiStateCollection1_14: TestUiStateCollection1 = TestUiStateCollection1(
     myEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
     hisEnum = com.zhy.unittest.MyEnum.CHRISTMAS,
-    tv1Cnt = TODO(), 
-    btn1String = TODO(), 
     )
 
 /**

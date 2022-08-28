@@ -6,8 +6,7 @@ import javax.lang.model.type.TypeMirror
 
 internal val typeKindInt = listOf(TypeKind.BYTE, TypeKind.SHORT, TypeKind.INT, TypeKind.LONG)
 
-internal fun TypeMirror.isClass() =
-    kind == TypeKind.DECLARED && this.toString() != "java.lang.String"
+internal fun TypeMirror.isClass() = kind == TypeKind.DECLARED && !this.isString()
 
 internal fun TypeMirror.isString() = this.toString() == "java.lang.String"
 

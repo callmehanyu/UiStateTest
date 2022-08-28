@@ -28,8 +28,22 @@ internal class UiStateTestProcessor : AbstractProcessor() {
     private val elementSealedSet by lazy { mutableSetOf<Element>() }
     private val elementsDeclaredSet by lazy { mutableSetOf<Element>() }
 
-    private val caseBuilder by lazy { CaseBuilder(elementEnumSet, elementSealedSet, elementsDeclaredSet, messager) }
-    private val sourceFileGenerator by lazy { SourceFileGenerator(elementEnumSet, elementSealedSet, messager) }
+    private val caseBuilder by lazy {
+        CaseBuilder(
+            elementEnumSet,
+            elementSealedSet,
+            elementsDeclaredSet,
+            messager
+        )
+    }
+    private val sourceFileGenerator by lazy {
+        SourceFileGenerator(
+            elementEnumSet,
+            elementSealedSet,
+            UiStateTestCollection("",""),
+            messager
+        )
+    }
     private val treePruner by lazy { TreePruner(elementEnumSet, elementSealedSet, messager) }
 
     override fun init(processingEnv: ProcessingEnvironment) {
@@ -64,6 +78,8 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         annotations.add(com.mock.annotation.limit.Enum::class.java.canonicalName)
         annotations.add(UiStateTestLimitSealed::class.java.canonicalName)
         annotations.add(com.mock.annotation.limit.Sealed::class.java.canonicalName)
+
+        annotations.add(UiStateTestCollection::class.java.canonicalName)
 
         return annotations
     }
@@ -120,6 +136,7 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         val elementsDeclaredSet = roundEnv.getElementsAnnotatedWith(UiStateTestDeclared::class.java)
             .filter { it.kind.isClass }
         this.elementsDeclaredSet.addAll(elementsDeclaredSet)
+
     }
 
     /**

@@ -5,6 +5,8 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1111111111111111" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.13145896656534956" />
+        <entry key="app/src/main/res/layout/activity_test_launcher.xml" value="0.18115942028985507" />
+        <entry key="app/src/main/res/layout/launcher_vh.xml" value="0.18115942028985507" />
       </map>
     </option>
   </component>

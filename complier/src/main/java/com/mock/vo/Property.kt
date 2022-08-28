@@ -24,6 +24,21 @@ internal sealed class Property(
     }
 }
 
+internal fun List<Property>.equalsTo(other: List<String>): Boolean {
+    if (this.size != other.size) {
+        return false
+    }
+    for (i in this.indices) {
+        if (this[i].value == com.mock.TODO) {
+            continue
+        }
+        if (this[i].toString() != other[i]) {
+            return false
+        }
+    }
+    return true
+}
+
 /**
  * 原始属性，包括string
  */

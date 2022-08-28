@@ -1,11 +1,13 @@
 package com.mock
 
+import com.mock.annotation.UiStateTestCollection
 import com.mock.util.isClass
 import com.mock.util.isEnum
 import com.mock.util.isSealed
 import com.mock.util.toLowerCaseInFirst
 import com.mock.vo.Property
 import com.mock.vo.Tree
+import com.mock.vo.equalsTo
 import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import java.io.File
@@ -20,6 +22,7 @@ import javax.tools.Diagnostic
 internal class SourceFileGenerator(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
+    private val collectionAnnotation: UiStateTestCollection,
     private val messager: Messager,
 ) {
 
@@ -53,20 +56,52 @@ internal class SourceFileGenerator(
     ) {
 //                messager.printMessage(Diagnostic.Kind.NOTE, "caseTree:"+caseTree.printAllString().joinToString(";"))
 
-        caseTree.startTraverseCompletePath().forEachIndexed { index, propertyList ->
-
-            val codeBlock = generateCodeBlockStack(caseTree, propertyList)
-
-            val property = PropertySpec.builder(
-                "${caseTree.property.value.toLowerCaseInFirst()}_$index",
-                ClassName.bestGuess(caseTree.property.element.asType().toString())
-            )
-                .addKdoc("${caseTree.property.element.asType()}_$index")
-                // 初始化值
-                .initializer(codeBlock)
-                .build()
-            file.addProperty(property)
+        caseTree.startTraverseCompletePath().forEachIndexed { index, todoPath ->
+            val collectionPathList: List<String> = collectionAnnotation.property.split(",")
+            if (todoPath.equalsTo(collectionPathList)) {
+                addPropertyWhenCollection(caseTree, index, file)
+            } else {
+                addPropertyWhenTodo(caseTree, todoPath, index, file)
+            }
         }
+    }
+
+    private fun addPropertyWhenTodo(
+        caseTree: Tree,
+        todoPath: List<Property>,
+        index: Int,
+        file: FileSpec.Builder
+    ) {
+        val codeBlock = generateCodeBlockStack(caseTree, todoPath)
+        val property = PropertySpec.builder(
+            "${caseTree.property.value.toLowerCaseInFirst()}_$index",
+            ClassName.bestGuess(caseTree.property.element.asType().toString())
+        )
+            .addKdoc("${caseTree.property.element.asType()}_$index")
+            // 初始化值
+            .initializer(codeBlock)
+            .build()
+        file.addProperty(property)
+    }
+
+    private fun addPropertyWhenCollection(
+        caseTree: Tree,
+        index: Int,
+        file: FileSpec.Builder
+    ) {
+        val code = "${collectionAnnotation.className}(${collectionAnnotation.property})"
+        val codeBlock = CodeBlock.builder()
+            .add(code)
+            .build()
+        val property = PropertySpec.builder(
+            "${caseTree.property.value.toLowerCaseInFirst()}_$index",
+            ClassName.bestGuess(caseTree.property.element.asType().toString())
+        )
+            .addKdoc("${caseTree.property.element.asType()}_$index")
+            // 初始化值
+            .initializer(codeBlock)
+            .build()
+        file.addProperty(property)
     }
 
     private fun generateCodeBlockStack(caseTree: Tree, propertyList: List<Property>): CodeBlock {

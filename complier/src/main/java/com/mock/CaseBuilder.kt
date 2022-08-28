@@ -14,6 +14,7 @@ import javax.tools.Diagnostic
 
 
 internal const val TODO = "TODO()"
+//internal const val TODO = "com.zhy.collection.util.TODOException()"
 
 /**
  * 生成完备的测试用例

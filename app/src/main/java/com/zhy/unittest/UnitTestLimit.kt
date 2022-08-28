@@ -4,14 +4,14 @@ import com.mock.annotation.UiStateTest
 import com.mock.annotation.limit.*
 import com.mock.annotation.unique.UiStateTestUnique
 
-//@UiStateTest
-//data class TestUiStateLimit1(
-//    @UiStateTestLimitBoolean([com.mock.annotation.limit.Boolean(value = false, limitIdList = ["canSlow"])])
-//    @UiStateTestUnique
-//    val isFaast: Boolean,
-//    @UiStateTestUnique
-//    val isSllow: Boolean,
-//)
+@UiStateTest
+data class TestUiStateLimit1(
+    @UiStateTestLimitBoolean([com.mock.annotation.limit.Boolean(value = false, limitIdList = ["canSlow"])])
+    @UiStateTestUnique
+    val isFaast: Boolean,
+    @UiStateTestUnique
+    val isSllow: Boolean,
+)
 //
 //@UiStateTest
 //data class TestUiStateLimit2(

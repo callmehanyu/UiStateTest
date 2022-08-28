@@ -3,6 +3,8 @@ package com.zhy.collection
 import android.content.Context
 import android.util.Log
 import androidx.annotation.WorkerThread
+import com.zhy.collection.uistate.UiState
+import com.zhy.collection.util.TodoException
 import java.io.File
 import java.lang.StringBuilder
 
@@ -16,18 +18,15 @@ private const val INFO_TAG = "MOCK_PRINTER_INFO"
 
 /**
  * 执行前，请检查是否更新了最新的uistate mock文件
- * todo 重复
  */
 @WorkerThread
-fun <T : Any> writeMock(
+fun <T : UiState> writeMock(
     context: Context,
     objectToMock: T,
-    cacheMockList: List<T>,
 ) {
     val pageName = objectToMock::class.simpleName
     if (pageName.isNullOrBlank()) {
         throw IllegalArgumentException("pageName 不能为空")
-        return
     }
     val objectName = objectToMock::class.simpleName
 
@@ -47,15 +46,24 @@ fun <T : Any> writeMock(
 /**
  * Print out the code that is needed to construct the given object. This is useful for creating mock state or argument objects.
  * Use "adb logcat -s "MAVERICKS_STATE" -v raw -v color" in the terminal to visualize the output nicely.
- *
- * @param listTruncationThreshold If greater then 0, any lists found will be truncated to this number of items. If 0 or less, no truncation will occur.
- * @param stringTruncationThreshold If greater then 0, any Strings found will be truncated to this number or characters. If 0 or less, no truncation will occur.
  */
 @WorkerThread
-private fun <T : Any> printMockFile(
+private fun <T : UiState> printMockFile(
     context: Context,
     instanceToMock: T,
 ) {
+
+//    /**
+//     * equalsUnique
+//     */
+//    if (!needCollect(instanceToMock, cacheMockList)) {
+//        Log.d("needCollect", "illegal state")
+//        return
+//    }
+
+    /**
+     * todo 注解 package import index
+     */
     val code = ConstructorCodeGenerator(
         instanceToMock,
         300,
@@ -77,9 +85,19 @@ private fun <T : Any> printMockFile(
     Log.d(RESULTS_TAG, file.canonicalPath)
 }
 
-//private fun<T : Any> checkIfIllagel(
-//    context: Context,
-//    instanceToMock: T,
-//): Boolean {
-//
-//}
+/**
+ * 1.检测是否相同
+ * 2.检测是否有todo
+ */
+private fun<T : UiState> needCollect(
+    instanceToMock: T,
+    cacheMockList: List<T>,
+): Boolean {
+    return try {
+        Log.d("needCollect", "contains=${cacheMockList.any { it.equalsUnique(instanceToMock) }}")
+        cacheMockList.any { it.equalsUnique(instanceToMock) }
+    } catch (e: Exception) {
+        Log.d("needCollect", "TodoException")
+        true
+    }
+}
