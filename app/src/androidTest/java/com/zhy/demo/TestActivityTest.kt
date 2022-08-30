@@ -28,6 +28,7 @@ class TestActivityTest {
             //启动Activity
             mainActivityRule.activity.handle(it)
             delay(2000)
+            // 目录：Pictures/screenshots
             Screenshot.capture().process()
         }
     }
