@@ -26,13 +26,13 @@ class TestActivity : AppCompatActivity() {
         }
 
         viewModel.uiState.observe(this) {
-            writeMock(this, it)
+//            writeMock(this, it)
             handle(it)
         }
 
     }
 
-    fun handle(uiState: TestUiStateCollection1) {
+    fun handle(uiState: TestUiStateCollection1) { // todo 注解
         findViewById<TextView>(R.id.tv_1).text = uiState.myEnum.name
         findViewById<TextView>(R.id.tv_2).text = uiState.hisEnum.name
     }

@@ -26,7 +26,9 @@ internal class SourceFileGenerator(
     private val messager: Messager,
 ) {
 
-    private val dir = File("/Users/zhanghanyu01/Documents/GitHub/UiTest/app/src/main/java")
+//    private val dir = File("/Users/zhanghanyu01/Documents/GitHub/UiTest/app/src/main/java")
+    private val dir = File("/Users/zhanghanyu01/Desktop/temp3/baidu/youavideo/android/app/src/androidTest/java")
+//    private val dir = File("/Users/zhanghanyu01/Desktop/temp3/baidu/youavideo/android/business_home/src/androidTest/java") // todo
 
     fun generateSourceFiles(treeList: List<Tree>) {
 

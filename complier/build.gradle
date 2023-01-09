@@ -2,17 +2,32 @@ plugins {
     id 'java-library'
     id 'kotlin'
     id 'kotlin-kapt'
+    id 'maven'
 }
 
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation project(path: ':annotation')
+    implementation 'com.zhy:annotation:0.0.1'
     implementation 'com.squareup:javapoet:1.13.0'
-    implementation files('libs/kotlinpoet-1.7.2.jar')
+    implementation 'com.squareup:kotlinpoet:1.7.2'
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        repository(url: uri('../local-maven'))
+        pom.project {
+            name 'complier'
+            description 'complier'
+            groupId "com.zhy"
+            artifactId 'complier'
+            version '0.0.1'
+        }
+    }
 }

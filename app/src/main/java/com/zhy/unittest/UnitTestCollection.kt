@@ -6,6 +6,9 @@ import com.mock.annotation.limit.UiStateTestLimitEnum
 import com.mock.annotation.unique.UiStateTestUnique
 import com.zhy.collection.uistate.UiState
 
+/**
+ * todo 一刻设置页
+ */
 @UiStateTest
 data class TestUiStateCollection1(
     @UiStateTestLimitEnum([com.mock.annotation.limit.Enum(value = "CHRISTMAS", limitIdList = ["chinses"])])
@@ -15,7 +18,7 @@ data class TestUiStateCollection1(
     @UiStateTestUnique
     val hisEnum: MyEnum = MyEnum.NORMAL,
 //    val tv1Cnt: Int = 0,
-//    val btn1String: String? = "init",
+    val btn1String: String? = "init",
 ) : UiState() {
 
     override fun equalsUnique(other: Any?): Boolean {
