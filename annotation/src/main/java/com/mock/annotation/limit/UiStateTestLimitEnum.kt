@@ -4,7 +4,7 @@ import kotlin.reflect.KClass
 
 /**
  * Boolean
- * todo 没讲清楚
+ * todo 先不搞
  */
 @Retention(value = AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FIELD)

@@ -7,8 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.zhy.R
-import com.zhy.collection.writeMock
-import com.zhy.unittest.TestUiStateCollection1
+import com.zhy.unittest.TestUiStateCollection
 import com.zhy.util.getViewModel
 
 class TestActivity : AppCompatActivity() {
@@ -32,7 +31,7 @@ class TestActivity : AppCompatActivity() {
 
     }
 
-    fun handle(uiState: TestUiStateCollection1) { // todo 注解
+    fun handle(uiState: TestUiStateCollection) { // todo 注解
         findViewById<TextView>(R.id.tv_1).text = uiState.myEnum.name
         findViewById<TextView>(R.id.tv_2).text = uiState.hisEnum.name
     }

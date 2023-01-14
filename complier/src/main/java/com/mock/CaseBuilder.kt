@@ -1,5 +1,7 @@
 package com.mock
 
+import com.mock.annotation.custom.UiStateTestCustomInt
+import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
 import com.mock.util.*
 import com.mock.util.isEnum
@@ -34,11 +36,14 @@ internal class CaseBuilder(
         val list = tree.property.element.enclosedElements
             .filter { it.kind == ElementKind.FIELD }
         list.forEach { enclosedElement ->
-            val annotation = enclosedElement.getAnnotation(UiStateTestUnique::class.java)
-            if (annotation == null) {
-                buildCasesWithoutAnnotation(tree, enclosedElement, false)
-            } else {
-                buildCasesWhenType(enclosedElement, tree, annotation, false)
+            enclosedElement.getAnnotation(UiStateTestUnique::class.java)?.let {
+                buildCasesWhenUnique(enclosedElement, tree, it, false)
+            }
+            enclosedElement.getAnnotation(UiStateTestCustomString::class.java)?.let {
+                buildCasesWhenCustomString(enclosedElement, tree, it.customString, false)
+            }
+            enclosedElement.getAnnotation(UiStateTestCustomInt::class.java)?.let {
+                buildCasesWhenCustomInt(enclosedElement, tree, it.customInt, false)
             }
         }
 //        messager.printMessage(Diagnostic.Kind.NOTE, treeRoot.printAllString().joinToString(";"))
@@ -55,7 +60,7 @@ internal class CaseBuilder(
             if (annotation == null) {
                 buildCasesWithoutAnnotation(tree, enclosedElement, isLast)
             } else {
-                buildCasesWhenType(enclosedElement, tree, annotation, isLast)
+                buildCasesWhenUnique(enclosedElement, tree, annotation, isLast)
             }
         }
 //        messager.printMessage(Diagnostic.Kind.NOTE, treeRoot.printAllString().joinToString(";"))
@@ -71,7 +76,7 @@ internal class CaseBuilder(
         buildTree(treeRoot, case)
     }
 
-    private fun buildCasesWhenType(
+    private fun buildCasesWhenUnique(
         element: Element,
         treeRoot: Tree,
         annotation: UiStateTestUnique,
@@ -270,5 +275,25 @@ internal class CaseBuilder(
                 )
             )
         )
+
+    /**
+     *
+     */
+    private fun buildCasesWhenCustomString(element: Element, treeRoot: Tree, customString: String, isLast: Boolean) {
+        val property = PrimitiveProperty(element, "\"${customString}\"", isLast)
+        val tree = Tree(property)
+        val case = listOf(tree)
+        buildTree(treeRoot, case)
+    }
+
+    /**
+     *
+     */
+    private fun buildCasesWhenCustomInt(element: Element, treeRoot: Tree, customInt: Int, isLast: Boolean) {
+        val property = PrimitiveProperty(element, customInt.toString(), isLast)
+        val tree = Tree(property)
+        val case = listOf(tree)
+        buildTree(treeRoot, case)
+    }
 
 }

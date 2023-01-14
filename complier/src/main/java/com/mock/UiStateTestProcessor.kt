@@ -1,6 +1,8 @@
 package com.mock
 
 import com.mock.annotation.*
+import com.mock.annotation.custom.UiStateTestCustomInt
+import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.limit.*
 import com.mock.annotation.unique.UiStateTestEnum
 import com.mock.annotation.unique.UiStateTestSealed
@@ -79,7 +81,10 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         annotations.add(UiStateTestLimitSealed::class.java.canonicalName)
         annotations.add(com.mock.annotation.limit.Sealed::class.java.canonicalName)
 
-        annotations.add(UiStateTestCollection::class.java.canonicalName)
+//        annotations.add(UiStateTestCollection::class.java.canonicalName)
+        annotations.add(UiStateTestCustomString::class.java.canonicalName)
+        annotations.add(UiStateTestCustomInt::class.java.canonicalName)
+
 
         return annotations
     }
