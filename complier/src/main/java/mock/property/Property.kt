@@ -1,8 +1,6 @@
-package com.mock.vo
+package mock.property
 
 import javax.lang.model.element.Element
-import javax.lang.model.type.TypeKind
-import javax.lang.model.type.TypeMirror
 
 /**
  * @param element 类型信息
@@ -24,21 +22,6 @@ internal sealed class Property(
     }
 }
 
-internal fun List<Property>.equalsTo(other: List<String>): Boolean {
-    if (this.size != other.size) {
-        return false
-    }
-    for (i in this.indices) {
-        if (this[i].value == com.mock.TODO) {
-            continue
-        }
-        if (this[i].toString() != other[i]) {
-            return false
-        }
-    }
-    return true
-}
-
 /**
  * 原始属性，包括string
  */
@@ -50,11 +33,9 @@ internal class PrimitiveProperty(
 
 /**
  * 自定义属性
- * @param isGrafted 是否被嫁接过，被嫁接过意味着该类型的所有case已经完善
  */
 internal class DeclaredProperty(
     element: Element,
     value: String,
     isLast: Boolean,
-//    var isGrafted: Boolean,
 ) : Property(element, value, isLast)

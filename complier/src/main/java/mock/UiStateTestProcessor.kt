@@ -1,4 +1,4 @@
-package com.mock
+package mock
 
 import com.mock.annotation.*
 import com.mock.annotation.custom.UiStateTestCustomInt
@@ -7,21 +7,22 @@ import com.mock.annotation.limit.*
 import com.mock.annotation.unique.UiStateTestEnum
 import com.mock.annotation.unique.UiStateTestSealed
 import com.mock.annotation.unique.UiStateTestUnique
-import com.mock.vo.*
-import com.mock.vo.DeclaredProperty
-import com.mock.vo.PrimitiveProperty
+import mock.casebuilder.CaseFactory
+import mock.casebuilder.UiStateCase
+import mock.property.DeclaredProperty
+import mock.tree.Tree
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
 import javax.lang.model.element.TypeElement
 import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
-import javax.tools.Diagnostic
 
+internal lateinit var messager: Messager
 
 internal class UiStateTestProcessor : AbstractProcessor() {
 
-    private lateinit var messager: Messager
+
     private lateinit var elementUtils: Elements
     private lateinit var filer: Filer
     private lateinit var typeUtils: Types
@@ -29,24 +30,22 @@ internal class UiStateTestProcessor : AbstractProcessor() {
     private val elementEnumSet by lazy { mutableSetOf<Element>() }
     private val elementSealedSet by lazy { mutableSetOf<Element>() }
     private val elementsDeclaredSet by lazy { mutableSetOf<Element>() }
+    private val declaredCaseTreeList: MutableList<Tree> by lazy { mutableListOf() }
 
-    private val caseBuilder by lazy {
-        CaseBuilder(
+    private val caseFactory by lazy {
+        CaseFactory(
             elementEnumSet,
             elementSealedSet,
-            elementsDeclaredSet,
-            messager
+            declaredCaseTreeList,
         )
     }
     private val sourceFileGenerator by lazy {
         SourceFileGenerator(
             elementEnumSet,
             elementSealedSet,
-            UiStateTestCollection("",""),
-            messager
+            "Complier"
         )
     }
-    private val treePruner by lazy { TreePruner(elementEnumSet, elementSealedSet, messager) }
 
     override fun init(processingEnv: ProcessingEnvironment) {
         super.init(processingEnv)
@@ -94,28 +93,37 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         roundEnv: RoundEnvironment
     ): Boolean {
 
+        /**
+         * 0.
+         */
         collectElementEnumAndSealedSet(roundEnv)
+
+        /**
+         * 0.对每个 UiStateTestDeclared中的自定义数据结构，建立树
+         */
+        val declaredCaseTreeList = buildUiStateTestDeclaredTreeList(elementsDeclaredSet)
+        this.declaredCaseTreeList.addAll(declaredCaseTreeList)
 
         /**
          * 1.对每个 UiState，建树
          */
-        val caseTreeList = buildUiStateTestTreeList(roundEnv)
+        val caseTreeList = UiStateCase(roundEnv, elementEnumSet, elementSealedSet, this.declaredCaseTreeList).build()
         if (caseTreeList.isEmpty()) {
             return true
         }
 
-        /**
-         * 2.对每个 UiStateTestDeclared中的自定义数据结构，建立树
-         */
-        val declaredCaseTreeList = buildUiStateTestDeclaredTreeList(elementsDeclaredSet)
+//        /**
+//         * 2.对每个 UiStateTestDeclared中的自定义数据结构，建立树
+//         */
+//        val declaredCaseTreeList = buildUiStateTestDeclaredTreeList(elementsDeclaredSet)
 
-        /**
-         * 3.对于有嵌套关系的树，嫁接在一起
-         */
-        caseTreeList.forEach { case ->
-            graftTree(case, declaredCaseTreeList)
-            treePruner.start(case)
-        }
+//        /**
+//         * 3.对于有嵌套关系的树，嫁接在一起
+//         */
+//        caseTreeList.forEach { case ->
+//            graftTree(case, this.declaredCaseTreeList)
+//            treePruner.start(case)
+//        }
 
         /**
          * 4.生成代码
@@ -144,20 +152,6 @@ internal class UiStateTestProcessor : AbstractProcessor() {
 
     }
 
-    /**
-     *
-     */
-    private fun buildUiStateTestTreeList(roundEnv: RoundEnvironment): List<Tree> =
-        roundEnv.getElementsAnnotatedWith(UiStateTest::class.java)
-            .asSequence()
-            .filter { it.kind.isClass && it is TypeElement }
-            .map {
-                val root = Tree(PrimitiveProperty(it, it.simpleName.toString(), isLast = true))
-                caseBuilder.buildCompleteCases(root)
-                root
-            }
-            .toList()
-
     private fun buildUiStateTestDeclaredTreeList(elementsAnnotatedWith: Set<Element>): List<Tree> {
         return elementsAnnotatedWith
             .asSequence()
@@ -171,7 +165,7 @@ internal class UiStateTestProcessor : AbstractProcessor() {
                         isLast = false
                     )
                 )
-                caseBuilder.buildCompleteCasesDeclared(root)
+                caseFactory.buildCompleteCasesDeclared(root)
                 root
             }
             .toList()

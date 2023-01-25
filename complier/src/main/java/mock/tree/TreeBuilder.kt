@@ -1,9 +1,6 @@
-package com.mock
+package mock.tree
 
-import com.mock.vo.DeclaredProperty
-import com.mock.vo.Tree
-import com.mock.vo.copy
-import com.mock.vo.graftTreeWhenLeaves
+import mock.property.DeclaredProperty
 
 internal fun graftTree(caseTree: Tree, declaredCaseTreeList: List<Tree>) {
 

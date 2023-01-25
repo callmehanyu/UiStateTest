@@ -1,11 +1,12 @@
-package com.mock
+package mock.tree
 
 import com.mock.annotation.limit.*
 import com.mock.annotation.limit.Boolean
 import com.mock.annotation.limit.Enum
-import com.mock.util.*
-import com.mock.vo.Tree
-import javax.annotation.processing.Messager
+import mock.casebuilder.TODO_STRING
+import mock.messager
+import mock.util.*
+import mock.util.typeKindInt
 import javax.lang.model.element.Element
 import javax.lang.model.type.MirroredTypeException
 import javax.lang.model.type.TypeKind
@@ -18,7 +19,6 @@ import javax.tools.Diagnostic
 internal class TreePruner(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
-    private val messager: Messager,
 ) {
 
     /**
@@ -173,7 +173,7 @@ internal class TreePruner(
                     upgradeTypeMirror = e.typeMirror
                 }
 //                messager.printMessage(Diagnostic.Kind.NOTE, "property.value=${property.value}, upgradeTypeMirror= ${upgradeTypeMirror}(${TODO})")
-                property.value == "${upgradeTypeMirror}(${TODO})"
+                property.value == "${upgradeTypeMirror}($TODO_STRING)"
             }
             .forEach { cases: Sealed ->
                 cases.limitIdList.forEach { limitId ->

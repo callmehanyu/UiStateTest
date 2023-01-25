@@ -1,4 +1,4 @@
-package com.mock.util
+package mock.util
 
 fun String.toUpperCaseInFirst(): String = this.mapIndexed { index, c ->
     if (index == 0) {

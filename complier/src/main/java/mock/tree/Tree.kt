@@ -1,4 +1,6 @@
-package com.mock.vo
+package mock.tree
+
+import mock.property.Property
 
 
 internal class Tree(

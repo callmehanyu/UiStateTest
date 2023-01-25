@@ -1,4 +1,4 @@
-package com.mock.util
+package mock.util
 
 import javax.lang.model.element.Element
 import javax.lang.model.type.TypeKind

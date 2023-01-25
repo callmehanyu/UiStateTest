@@ -1,0 +1,128 @@
+package mock.casebuilder
+
+import com.mock.annotation.custom.UiStateTestCustomInt
+import com.mock.annotation.custom.UiStateTestCustomString
+import com.mock.annotation.unique.UiStateTestUnique
+import mock.messager
+import mock.property.PrimitiveProperty
+import mock.util.*
+import mock.util.isEnum
+import mock.util.isSealed
+import mock.util.isString
+import mock.tree.Tree
+import mock.tree.buildTree
+import javax.lang.model.element.Element
+import javax.lang.model.element.ElementKind
+import javax.lang.model.type.TypeKind
+import javax.tools.Diagnostic
+
+
+internal const val TODO_STRING = "TODO()"
+
+/**
+ * 生成完备的测试用例
+ * bool enum intdef stringdef sealed内部
+ * todo sealed外部 暂不支持
+ * todo 改名怎么办？
+ */
+internal class CaseFactory(
+    private val elementEnumSet: Set<Element>,
+    private val elementSealedSet: Set<Element>,
+    private val declaredCaseTreeList: List<Tree>,
+) {
+
+    fun buildCompleteCases(tree: Tree) {
+        val list = tree.property.element.enclosedElements
+            .filter { it.kind == ElementKind.FIELD }
+        list.forEach { enclosedElement ->
+            enclosedElement.getAnnotation(UiStateTestUnique::class.java)?.let {
+                buildCasesWhenUnique(enclosedElement, tree, it, false)
+            }
+            enclosedElement.getAnnotation(UiStateTestCustomString::class.java)?.let {
+                buildCasesWhenCustomString(enclosedElement, tree, it.customString, false)
+            }
+            enclosedElement.getAnnotation(UiStateTestCustomInt::class.java)?.let {
+                buildCasesWhenCustomInt(enclosedElement, tree, it.customInt, false)
+            }
+        }
+//        messager.printMessage(Diagnostic.Kind.NOTE, treeRoot.printAllString().joinToString(";"))
+    }
+
+    fun buildCompleteCasesDeclared(tree: Tree) {
+        val list = tree.property.element.enclosedElements
+            .filter { it.kind == ElementKind.FIELD }
+        list.forEachIndexed { index, enclosedElement ->
+
+            val isLast = index == list.lastIndex
+
+            val annotation = enclosedElement.getAnnotation(UiStateTestUnique::class.java)
+            if (annotation != null) {
+                buildCasesWhenUnique(enclosedElement, tree, annotation, isLast)
+            }
+        }
+//        messager.printMessage(Diagnostic.Kind.NOTE, treeRoot.printAllString().joinToString(";"))
+    }
+
+    private fun buildCasesWhenUnique(
+        element: Element,
+        treeRoot: Tree,
+        annotation: UiStateTestUnique,
+        isLast: Boolean
+    ) {
+
+        val type = element.asType()
+
+//        messager.printMessage(Diagnostic.Kind.NOTE, "type=${type.toString().split("<").joinToString(",")}")
+
+        val cases = when {
+            type.kind == TypeKind.BOOLEAN -> {
+                BooleanCase().build(element, isLast)
+            }
+            type.kind in typeKindInt -> {
+                IntCase(annotation.intDef).build(element, isLast)
+            }
+            type.isString() -> {
+                StringCase(annotation.stringDef).build(element, isLast)
+            }
+            type.isEnum(elementEnumSet) -> { //先处理 enum，再处理 isClass
+                EnumCase(elementEnumSet).build(element, isLast)
+            }
+            type.isSealed(elementSealedSet) -> {
+                SealedCase(elementSealedSet).build(element, isLast)
+            }
+            type.isList() -> {
+                ListCase(elementEnumSet, elementSealedSet, declaredCaseTreeList).build(element, isLast)
+            }
+            type.isClass() -> {
+                DeclaredCase().build(element, isLast)
+            }
+            else -> {
+                messager.printMessage(Diagnostic.Kind.WARNING, "不支持该类型 ${element.simpleName}")
+                emptyList()
+            }
+        }
+
+        buildTree(treeRoot, cases)
+    }
+
+    /**
+     *
+     */
+    private fun buildCasesWhenCustomString(element: Element, treeRoot: Tree, customString: String, isLast: Boolean) {
+        val property = PrimitiveProperty(element, "\"${customString}\"", isLast)
+        val tree = Tree(property)
+        val case = listOf(tree)
+        buildTree(treeRoot, case)
+    }
+
+    /**
+     *
+     */
+    private fun buildCasesWhenCustomInt(element: Element, treeRoot: Tree, customInt: Int, isLast: Boolean) {
+        val property = PrimitiveProperty(element, customInt.toString(), isLast)
+        val tree = Tree(property)
+        val case = listOf(tree)
+        buildTree(treeRoot, case)
+    }
+
+}

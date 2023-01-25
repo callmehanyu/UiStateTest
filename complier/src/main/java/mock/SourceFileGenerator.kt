@@ -1,20 +1,20 @@
-package com.mock
+package mock
 
-import com.mock.annotation.UiStateTestCollection
-import com.mock.util.isClass
-import com.mock.util.isEnum
-import com.mock.util.isSealed
-import com.mock.util.toLowerCaseInFirst
-import com.mock.vo.Property
-import com.mock.vo.Tree
-import com.mock.vo.equalsTo
-import com.squareup.kotlinpoet.*
+import mock.casebuilder.TODO_STRING
+import mock.property.Property
+import com.squareup.kotlinpoet.ClassName
+import com.squareup.kotlinpoet.CodeBlock
+import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
+import com.squareup.kotlinpoet.PropertySpec
+import mock.tree.Tree
+import mock.util.*
+import mock.util.isClass
+import mock.util.isEnum
+import mock.util.isSealed
 import java.io.File
 import java.util.*
-import javax.annotation.processing.Messager
 import javax.lang.model.element.Element
-import javax.tools.Diagnostic
 
 /**
  * 代码生成器
@@ -22,8 +22,7 @@ import javax.tools.Diagnostic
 internal class SourceFileGenerator(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
-    private val collectionAnnotation: UiStateTestCollection,
-    private val messager: Messager,
+    private val fileNameType: String
 ) {
 
     private val dir = File("/Users/zhanghanyu01/Documents/GitHub/UiTest/app/src/main/java")
@@ -40,39 +39,30 @@ internal class SourceFileGenerator(
         }
     }
 
-    private fun generateSourceFile(caseTree: Tree) {
+    fun generateSourceFile(caseTree: Tree) {
         // 写出 kt文件名
-        val file = FileSpec.builder("com.zhy.demo.mock", "${caseTree.property.value}Complier")
+        val file = FileSpec.builder("com.zhy.demo.mock", "${caseTree.property.value}${fileNameType}")
 
-        generateVal(caseTree, file)
-        generateList(caseTree, file)
+        file.generateVal(caseTree)
+        file.generateList(caseTree)
 
         // 生成目录；用于写入
         dir.mkdirs()
         file.build().writeTo(dir)
     }
 
-    private fun generateVal(
-        caseTree: Tree,
-        file: FileSpec.Builder,
-    ) {
+    private fun FileSpec.Builder.generateVal(caseTree: Tree) {
 //                messager.printMessage(Diagnostic.Kind.NOTE, "caseTree:"+caseTree.printAllString().joinToString(";"))
 
         caseTree.startTraverseCompletePath().forEachIndexed { index, todoPath ->
-            val collectionPathList: List<String> = collectionAnnotation.property.split(",")
-            if (todoPath.equalsTo(collectionPathList)) {
-                addPropertyWhenCollection(caseTree, index, file)
-            } else {
-                addPropertyWhenTodo(caseTree, todoPath, index, file)
-            }
+            addPropertyWhenTodo(caseTree, todoPath, index)
         }
     }
 
-    private fun addPropertyWhenTodo(
+    private fun FileSpec.Builder.addPropertyWhenTodo(
         caseTree: Tree,
         todoPath: List<Property>,
-        index: Int,
-        file: FileSpec.Builder
+        index: Int
     ) {
         val codeBlock = generateCodeBlockStack(caseTree, todoPath)
         val property = PropertySpec.builder(
@@ -83,28 +73,28 @@ internal class SourceFileGenerator(
             // 初始化值
             .initializer(codeBlock)
             .build()
-        file.addProperty(property)
+        addProperty(property)
     }
 
-    private fun addPropertyWhenCollection(
-        caseTree: Tree,
-        index: Int,
-        file: FileSpec.Builder
-    ) {
-        val code = "${collectionAnnotation.className}(${collectionAnnotation.property})"
-        val codeBlock = CodeBlock.builder()
-            .add(code)
-            .build()
-        val property = PropertySpec.builder(
-            "${caseTree.property.value.toLowerCaseInFirst()}_$index",
-            ClassName.bestGuess(caseTree.property.element.asType().toString())
-        )
-            .addKdoc("${caseTree.property.element.asType()}_$index")
-            // 初始化值
-            .initializer(codeBlock)
-            .build()
-        file.addProperty(property)
-    }
+//    private fun addPropertyWhenCollection(
+//        caseTree: Tree,
+//        index: Int,
+//        file: FileSpec.Builder
+//    ) {
+//        val code = "${collectionAnnotation.className}(${collectionAnnotation.property})"
+//        val codeBlock = CodeBlock.builder()
+//            .add(code)
+//            .build()
+//        val property = PropertySpec.builder(
+//            "${caseTree.property.value.toLowerCaseInFirst()}_$index",
+//            ClassName.bestGuess(caseTree.property.element.asType().toString())
+//        )
+//            .addKdoc("${caseTree.property.element.asType()}_$index")
+//            // 初始化值
+//            .initializer(codeBlock)
+//            .build()
+//        file.addProperty(property)
+//    }
 
     private fun generateCodeBlockStack(caseTree: Tree, propertyList: List<Property>): CodeBlock {
         val stack = Stack<Property>()
@@ -120,10 +110,7 @@ internal class SourceFileGenerator(
         return codeBlock
     }
 
-    private fun generateList(
-        caseTree: Tree,
-        file: FileSpec.Builder
-    ) {
+    private fun FileSpec.Builder.generateList(caseTree: Tree) {
         val codeBlock = CodeBlock.builder()
             .add("listOf(")
             .apply {
@@ -135,13 +122,14 @@ internal class SourceFileGenerator(
             .build()
         val property = PropertySpec.builder(
             "${caseTree.property.value.toLowerCaseInFirst()}_List",
-            ClassName("kotlin.collections", "List").parameterizedBy(ClassName.bestGuess(caseTree.property.element.asType().toString())),
+            ClassName("kotlin.collections", "List")
+                .parameterizedBy(ClassName.bestGuess(caseTree.property.element.asType().toString())),
         )
             .addKdoc("${caseTree.property.element.asType()}_List")
             // 初始化值
             .initializer(codeBlock)
             .build()
-        file.addProperty(property)
+        addProperty(property)
     }
 
     private fun buildLeftParenthesis(
@@ -160,8 +148,11 @@ internal class SourceFileGenerator(
                 property.element.asType().isSealed(elementSealedSet) -> {
                     builder.add("\n$property,")
                 }
+                property.element.asType().isList() -> {
+                    builder.add("\n$property,")
+                }
                 property.element.asType().isClass() -> {
-                    if (property.value == TODO) {
+                    if (property.value == TODO_STRING) {
                         builder.add("\n${property}")
                     } else {
                         builder.add("\n$property(")
