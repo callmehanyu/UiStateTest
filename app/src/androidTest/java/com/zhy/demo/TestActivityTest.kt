@@ -1,6 +1,5 @@
 package com.zhy.demo
 
-import androidx.test.core.app.ActivityScenario
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.screenshot.Screenshot
 import com.zhy.demo.mock.testUiStateCollection1_List
@@ -26,7 +25,7 @@ class TestActivityTest {
 
         testUiStateCollection1_List.forEach {
             //启动Activity
-            mainActivityRule.activity.handle(it)
+            mainActivityRule.activity.updateView(it)
             delay(2000)
             // 目录：Pictures/screenshots
             Screenshot.capture().process()

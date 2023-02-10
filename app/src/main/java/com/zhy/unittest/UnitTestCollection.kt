@@ -24,7 +24,7 @@ data class TestUiStateCollection(
     @UiStateTestCustomString("asdf")
     val btn1String: String? = "init",
     @UiStateTestUnique
-    val rvList: List<VHParam>,
+    val rvList: List<VHParam> = emptyList(),
 ) {
 
 //    override fun equalsUnique(other: Any?): Boolean {

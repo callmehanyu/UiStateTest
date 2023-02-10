@@ -22,7 +22,7 @@ uploadArchives {
             description 'annotation'
             groupId "com.zhy"
             artifactId 'annotation'
-            version '0.0.1'
+            version '0.0.2'
         }
     }
 }

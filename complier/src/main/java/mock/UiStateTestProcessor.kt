@@ -22,7 +22,6 @@ internal lateinit var messager: Messager
 
 internal class UiStateTestProcessor : AbstractProcessor() {
 
-
     private lateinit var elementUtils: Elements
     private lateinit var filer: Filer
     private lateinit var typeUtils: Types
@@ -99,12 +98,6 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         collectElementEnumAndSealedSet(roundEnv)
 
         /**
-         * 0.对每个 UiStateTestDeclared中的自定义数据结构，建立树
-         */
-        val declaredCaseTreeList = buildUiStateTestDeclaredTreeList(elementsDeclaredSet)
-        this.declaredCaseTreeList.addAll(declaredCaseTreeList)
-
-        /**
          * 1.对每个 UiState，建树
          */
         val caseTreeList = UiStateCase(roundEnv, elementEnumSet, elementSealedSet, this.declaredCaseTreeList).build()
@@ -112,21 +105,8 @@ internal class UiStateTestProcessor : AbstractProcessor() {
             return true
         }
 
-//        /**
-//         * 2.对每个 UiStateTestDeclared中的自定义数据结构，建立树
-//         */
-//        val declaredCaseTreeList = buildUiStateTestDeclaredTreeList(elementsDeclaredSet)
-
-//        /**
-//         * 3.对于有嵌套关系的树，嫁接在一起
-//         */
-//        caseTreeList.forEach { case ->
-//            graftTree(case, this.declaredCaseTreeList)
-//            treePruner.start(case)
-//        }
-
         /**
-         * 4.生成代码
+         * 2.生成代码
          */
         sourceFileGenerator.generateSourceFiles(caseTreeList)
 
@@ -150,6 +130,12 @@ internal class UiStateTestProcessor : AbstractProcessor() {
             .filter { it.kind.isClass }
         this.elementsDeclaredSet.addAll(elementsDeclaredSet)
 
+        /**
+         * 0.对每个 UiStateTestDeclared中的自定义数据结构，建立树
+         */
+        val declaredCaseTreeList = buildUiStateTestDeclaredTreeList(this.elementsDeclaredSet)
+        this.declaredCaseTreeList.addAll(declaredCaseTreeList)
+
     }
 
     private fun buildUiStateTestDeclaredTreeList(elementsAnnotatedWith: Set<Element>): List<Tree> {
@@ -161,7 +147,6 @@ internal class UiStateTestProcessor : AbstractProcessor() {
                     DeclaredProperty(
                         it,
                         it.simpleName.toString(),
-    //                        isGrafted = false,
                         isLast = false
                     )
                 )
