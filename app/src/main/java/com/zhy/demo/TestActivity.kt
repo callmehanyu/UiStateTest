@@ -3,8 +3,9 @@ package com.zhy.demo
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.mock.annotation.RunUiStateTest
 import com.zhy.R
-import com.zhy.unittest.TestUiStateCollection
+import com.zhy.unittest.TestUiState
 import com.zhy.util.getViewModel
 
 class TestActivity : AppCompatActivity() {
@@ -28,7 +29,8 @@ class TestActivity : AppCompatActivity() {
 
     }
 
-    fun updateView(uiState: TestUiStateCollection) { // todo 注解
+    @RunUiStateTest
+    fun updateView(uiState: TestUiState) {
         findViewById<TextView>(R.id.tv_1).text = uiState.myEnum.name
         findViewById<TextView>(R.id.tv_2).text = uiState.hisEnum.name
     }

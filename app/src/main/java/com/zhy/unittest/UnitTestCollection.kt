@@ -1,18 +1,16 @@
 package com.zhy.unittest
 
-import android.util.Log
 import com.mock.annotation.UiStateTest
 import com.mock.annotation.UiStateTestDeclared
 import com.mock.annotation.custom.UiStateTestCustomInt
 import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
-import com.zhy.collection.uistate.UiState
 
 /**
  *
  */
 @UiStateTest
-data class TestUiStateCollection(
+data class TestUiState(
 //    @UiStateTestLimitEnum([com.mock.annotation.limit.Enum(value = "CHRISTMAS", limitIdList = ["chinses"])])
     @UiStateTestUnique
     val myEnum: MyEnum = MyEnum.NORMAL,

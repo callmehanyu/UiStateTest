@@ -8,14 +8,14 @@ import android.util.Log
 import com.base.applicationScope
 import com.zhy.R
 import com.zhy.demo.TestActivity
-import com.zhy.launcher.biz.screenShotAllStateOfTestActivity
+import com.zhy.launcher.biz.screenShotAllState
 import kotlinx.coroutines.launch
 import java.io.File
 
 private const val TAG = "UiTestLauncherActivity"
 const val LAUNCHER_DEBUG_ACTIVITY_START_KEY_ACTIVITY_LIST = "activity_list"
 
-class UiTestLauncherActivity : ActivityGroup() {
+internal class UiTestLauncherActivity : ActivityGroup() {
 
     private val testActivityNameList: List<String> by lazy {
         intent.getStringExtra(LAUNCHER_DEBUG_ACTIVITY_START_KEY_ACTIVITY_LIST)?.split(',')
@@ -31,7 +31,7 @@ class UiTestLauncherActivity : ActivityGroup() {
             testActivityNameList.forEach {
                 when (it) {
                     TestActivity::class.java.canonicalName -> {
-                        screenShotAllStateOfTestActivity()
+                        screenShotAllState(this@UiTestLauncherActivity)
                     }
                 }
             }
