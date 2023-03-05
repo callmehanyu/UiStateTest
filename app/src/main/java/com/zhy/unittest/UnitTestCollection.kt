@@ -1,7 +1,10 @@
 package com.zhy.unittest
 
+import android.content.Context
+import android.graphics.Bitmap
 import com.mock.annotation.UiStateTest
 import com.mock.annotation.UiStateTestDeclared
+import com.mock.annotation.custom.UiStateTestCustomDeclared
 import com.mock.annotation.custom.UiStateTestCustomInt
 import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
@@ -23,6 +26,15 @@ data class TestUiState(
     val btn1String: String? = "init",
     @UiStateTestUnique
     val rvList: List<VHParam> = emptyList(),
+    @UiStateTestCustomDeclared("com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext, java.io.File(android.os.Environment.getExternalStorageDirectory(), \"/timg.jpeg\"), true, 50,50)")
+    val bmp: Bitmap? = null,
+    @UiStateTestUnique(
+        classDef = [
+            "com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext, java.io.File(android.os.Environment.getExternalStorageDirectory(), \"/timg.jpeg\"), true, 50,50)",
+            "com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext, java.io.File(android.os.Environment.getExternalStorageDirectory(), \"/timg2.jpeg\"), true, 50,50)",
+        ]
+    )
+    val bmpList: List<Bitmap?> = emptyList(),
 ) {
 
 //    override fun equalsUnique(other: Any?): Boolean {

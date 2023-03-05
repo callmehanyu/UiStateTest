@@ -1,5 +1,6 @@
-package mock.casebuilder
+package mock.casebuilder.type
 
+import mock.casebuilder.Case
 import mock.property.PrimitiveProperty
 import mock.tree.Tree
 import mock.util.findEnum

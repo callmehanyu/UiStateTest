@@ -23,16 +23,17 @@ internal sealed class Property(
 }
 
 /**
- * 原始属性，包括string
+ * 原始属性，包括string，不需要嫁接
  */
 internal class PrimitiveProperty(
     element: Element,
     value: String,
     isLast: Boolean,
+    val needMock: Boolean = false,
 ) : Property(element, value, isLast)
 
 /**
- * 自定义属性
+ * 自定义属性,需要嫁接
  */
 internal class DeclaredProperty(
     element: Element,

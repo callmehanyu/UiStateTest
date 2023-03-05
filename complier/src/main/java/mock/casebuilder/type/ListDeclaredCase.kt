@@ -1,9 +1,11 @@
-package mock.casebuilder
+package mock.casebuilder.type
 
+import com.mock.annotation.UiStateTestDeclared
 import mock.SourceFileGenerator
+import mock.casebuilder.Case
+import mock.casebuilder.CaseFactory
 import mock.tree.TreePruner
 import mock.tree.graftTree
-import mock.messager
 import mock.property.PrimitiveProperty
 import mock.tree.Tree
 import mock.util.getGenerics
@@ -11,10 +13,9 @@ import mock.util.toLowerCaseInFirst
 import javax.lang.model.element.Element
 
 /**
- * 获取List类所有case
- * 起点
+ * 获取List类所有case：泛型是带 [UiStateTestDeclared] 注解
  */
-internal class ListCase(
+internal class ListDeclaredCase(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
     private val declaredCaseTreeList: List<Tree>,

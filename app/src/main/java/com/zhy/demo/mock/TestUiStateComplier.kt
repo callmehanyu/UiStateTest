@@ -12,6 +12,14 @@ public val testUiState_0: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -23,6 +31,14 @@ public val testUiState_1: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -34,6 +50,14 @@ public val testUiState_2: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -45,6 +69,14 @@ public val testUiState_3: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -56,6 +88,14 @@ public val testUiState_4: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -67,6 +107,14 @@ public val testUiState_5: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -78,6 +126,14 @@ public val testUiState_6: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -89,6 +145,14 @@ public val testUiState_7: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -100,6 +164,14 @@ public val testUiState_8: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -111,6 +183,14 @@ public val testUiState_9: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -122,6 +202,14 @@ public val testUiState_10: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -133,6 +221,14 @@ public val testUiState_11: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -144,6 +240,14 @@ public val testUiState_12: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -155,6 +259,14 @@ public val testUiState_13: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -166,6 +278,14 @@ public val testUiState_14: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**
@@ -177,6 +297,14 @@ public val testUiState_15: TestUiState = TestUiState(
     tv1Cnt = 999, 
     btn1String = "asdf", 
     rvList = vHParam_List,
+    bmp = com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),
+    bmpList = listOf(com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg.jpeg"), true,
+        50,50),com.base.bitmap.BitmapUtils.getBitmap(android.app.Application().baseContext,
+        java.io.File(android.os.Environment.getExternalStorageDirectory(), "/timg2.jpeg"), true,
+        50,50)),
     )
 
 /**

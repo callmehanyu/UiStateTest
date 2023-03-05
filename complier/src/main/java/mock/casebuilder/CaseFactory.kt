@@ -1,8 +1,15 @@
 package mock.casebuilder
 
+import com.mock.annotation.custom.UiStateTestCustomDeclared
 import com.mock.annotation.custom.UiStateTestCustomInt
 import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
+import mock.casebuilder.type.*
+import mock.casebuilder.type.BooleanCase
+import mock.casebuilder.type.DeclaredCase
+import mock.casebuilder.type.IntCase
+import mock.casebuilder.type.SealedCase
+import mock.casebuilder.type.StringCase
 import mock.messager
 import mock.property.PrimitiveProperty
 import mock.util.*
@@ -44,8 +51,10 @@ internal class CaseFactory(
             enclosedElement.getAnnotation(UiStateTestCustomInt::class.java)?.let {
                 buildCasesWhenCustomInt(enclosedElement, tree, it.customInt, false)
             }
+            enclosedElement.getAnnotation(UiStateTestCustomDeclared::class.java)?.let {
+                buildCasesWhenCustomDeclared(enclosedElement, tree, it.instanceToString, false)
+            }
         }
-//        messager.printMessage(Diagnostic.Kind.NOTE, treeRoot.printAllString().joinToString(";"))
     }
 
     fun buildCompleteCasesDeclared(tree: Tree) {
@@ -71,9 +80,6 @@ internal class CaseFactory(
     ) {
 
         val type = element.asType()
-
-//        messager.printMessage(Diagnostic.Kind.NOTE, "type=${type.toString().split("<").joinToString(",")}")
-
         val cases = when {
             type.kind == TypeKind.BOOLEAN -> {
                 BooleanCase().build(element, isLast)
@@ -91,7 +97,7 @@ internal class CaseFactory(
                 SealedCase(elementSealedSet).build(element, isLast)
             }
             type.isList() -> {
-                ListCase(elementEnumSet, elementSealedSet, declaredCaseTreeList).build(element, isLast)
+                buildListCase(element, isLast, annotation.classDef)
             }
             type.isClass() -> {
                 DeclaredCase().build(element, isLast)
@@ -103,6 +109,26 @@ internal class CaseFactory(
         }
 
         buildTree(treeRoot, cases)
+    }
+
+    private fun buildListCase(
+        element: Element,
+        isLast: Boolean,
+        classDef: Array<String>,
+    ): List<Tree> {
+        /**
+         * 获取泛型的element
+         */
+        val genericsElement = declaredCaseTreeList
+            .find { it.property.element.asType().toString() == element.asType().getGenerics() }
+            ?.property?.element
+
+        return if (genericsElement == null) {
+            ListNativeCase(classDef).build(element, isLast)
+        } else {
+            ListDeclaredCase(elementEnumSet, elementSealedSet, declaredCaseTreeList)
+                .build(element, isLast)
+        }
     }
 
     /**
@@ -120,6 +146,16 @@ internal class CaseFactory(
      */
     private fun buildCasesWhenCustomInt(element: Element, treeRoot: Tree, customInt: Int, isLast: Boolean) {
         val property = PrimitiveProperty(element, customInt.toString(), isLast)
+        val tree = Tree(property)
+        val case = listOf(tree)
+        buildTree(treeRoot, case)
+    }
+
+    /**
+     *
+     */
+    private fun buildCasesWhenCustomDeclared(element: Element, treeRoot: Tree, instanceToString: String, isLast: Boolean) {
+        val property = PrimitiveProperty(element, instanceToString, isLast, true)
         val tree = Tree(property)
         val case = listOf(tree)
         buildTree(treeRoot, case)

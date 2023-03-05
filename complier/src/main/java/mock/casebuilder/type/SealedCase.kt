@@ -1,5 +1,7 @@
-package mock.casebuilder
+package mock.casebuilder.type
 
+import mock.casebuilder.Case
+import mock.casebuilder.TODO_STRING
 import mock.property.PrimitiveProperty
 import mock.tree.Tree
 import mock.util.findSealed
@@ -19,23 +21,10 @@ internal class SealedCase(
     private fun getSealedCases(element: Element, isLast: Boolean): List<Tree> {
         val sealedFather = element.asType().findSealed(elementSealedSet) ?: return emptyList()
 
-//        messager.printMessage(Diagnostic.Kind.NOTE, "sealed=${sealedFather.enclosedElements.filter { it.kind == ElementKind.FIELD }.map { it.simpleName }}")
-
-        val sealedFatherFieldList = sealedFather.enclosedElements
-            .filter { it.kind == ElementKind.FIELD }
-            .map { "${it.simpleName} = $TODO_STRING, " }
-
-//        messager.printMessage(Diagnostic.Kind.NOTE, "fieldList=${sealedFatherFieldList}")
-
         return sealedFather.enclosedElements
             ?.asSequence()
             ?.filter { it.kind == ElementKind.CLASS }
             ?.map { sealedChild ->
-//                messager.printMessage(Diagnostic.Kind.NOTE, "sealedChild=${sealedChild.enclosedElements.map { it.simpleName }}")
-
-                val sealedChildFieldList = sealedChild.enclosedElements
-                    .filter { it.kind == ElementKind.FIELD }
-                    .map { "${it.simpleName} = $TODO_STRING, " }
 
                 Tree(
                     PrimitiveProperty(
@@ -54,19 +43,14 @@ internal class SealedCase(
     private fun getSealedCasesDetail(element: Element, isLast: Boolean): List<Tree> {
         val sealedFather = element.asType().findSealed(elementSealedSet) ?: return emptyList()
 
-//        messager.printMessage(Diagnostic.Kind.NOTE, "sealed=${sealedFather.enclosedElements.filter { it.kind == ElementKind.FIELD }.map { it.simpleName }}")
-
         val sealedFatherFieldList = sealedFather.enclosedElements
             .filter { it.kind == ElementKind.FIELD }
             .map { "${it.simpleName} = $TODO_STRING, " }
-
-//        messager.printMessage(Diagnostic.Kind.NOTE, "fieldList=${sealedFatherFieldList}")
 
         return sealedFather.enclosedElements
             ?.asSequence()
             ?.filter { it.kind == ElementKind.CLASS }
             ?.map { sealedChild ->
-//                messager.printMessage(Diagnostic.Kind.NOTE, "sealedChild=${sealedChild.enclosedElements.map { it.simpleName }}")
 
                 val sealedChildFieldList = sealedChild.enclosedElements
                     .filter { it.kind == ElementKind.FIELD }

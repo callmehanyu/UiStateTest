@@ -1,5 +1,7 @@
-package mock.casebuilder
+package mock.casebuilder.type
 
+import mock.casebuilder.Case
+import mock.casebuilder.TODO_STRING
 import mock.property.PrimitiveProperty
 import mock.tree.Tree
 import javax.lang.model.element.Element

@@ -7,6 +7,7 @@ import com.squareup.kotlinpoet.CodeBlock
 import com.squareup.kotlinpoet.FileSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
+import mock.property.PrimitiveProperty
 import mock.tree.Tree
 import mock.util.*
 import mock.util.isClass
@@ -149,6 +150,9 @@ internal class SourceFileGenerator(
                     builder.add("\n$property,")
                 }
                 property.element.asType().isList() -> {
+                    builder.add("\n$property,")
+                }
+                (property as? PrimitiveProperty)?.needMock == true -> {
                     builder.add("\n$property,")
                 }
                 property.element.asType().isClass() -> {

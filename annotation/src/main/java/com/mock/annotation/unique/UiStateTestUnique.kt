@@ -11,4 +11,5 @@ package com.mock.annotation.unique
 annotation class UiStateTestUnique(
     val intDef: IntArray = [],
     val stringDef: Array<String> = [],
+    val classDef: Array<String> = [],
 )
