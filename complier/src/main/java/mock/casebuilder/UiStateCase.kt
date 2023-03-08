@@ -18,6 +18,8 @@ internal class UiStateCase(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
     private val declaredCaseTreeList: List<Tree>,
+    private val generateFilePath: String,
+    private val generateFilePackageName: String,
 ) {
 
     private val caseBuilder by lazy {
@@ -25,6 +27,8 @@ internal class UiStateCase(
             elementEnumSet,
             elementSealedSet,
             declaredCaseTreeList,
+            generateFilePath,
+            generateFilePackageName,
         )
     }
 

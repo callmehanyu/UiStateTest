@@ -20,12 +20,16 @@ import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 
 internal lateinit var messager: Messager
+private const val KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PATH = "uiStateTestGenerateFilePath"
+private const val KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PACKAGE_NAME = "uiStateTestGenerateFilePackageName"
 
 internal class UiStateTestProcessor : AbstractProcessor() {
 
     private lateinit var elementUtils: Elements
     private lateinit var filer: Filer
     private lateinit var typeUtils: Types
+    private var generateFilePath: String? = null
+    private var generateFilePackageName: String? = null
 
     private val elementEnumSet by lazy { mutableSetOf<Element>() }
     private val elementSealedSet by lazy { mutableSetOf<Element>() }
@@ -37,13 +41,18 @@ internal class UiStateTestProcessor : AbstractProcessor() {
             elementEnumSet,
             elementSealedSet,
             declaredCaseTreeList,
+            generateFilePath ?: "",
+            generateFilePackageName ?: ""
         )
     }
+
     private val sourceFileGenerator by lazy {
         SourceFileGenerator(
             elementEnumSet,
             elementSealedSet,
-            "Complier"
+            generateFilePath ?: "",
+            generateFilePackageName ?: "",
+            "Complier",
         )
     }
 
@@ -53,6 +62,11 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         elementUtils = processingEnv.elementUtils
         filer = processingEnv.filer
         messager = processingEnv.messager
+
+        val options = processingEnv.options
+        generateFilePath = options[KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PATH]
+        generateFilePackageName = options[KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PACKAGE_NAME]
+
     }
 
     override fun getSupportedSourceVersion(): SourceVersion {
@@ -85,7 +99,6 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         annotations.add(UiStateTestCustomInt::class.java.canonicalName)
         annotations.add(UiStateTestCustomDeclared::class.java.canonicalName)
 
-
         return annotations
     }
 
@@ -102,7 +115,14 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         /**
          * 1.对每个 UiState，建树
          */
-        val caseTreeList = UiStateCase(roundEnv, elementEnumSet, elementSealedSet, this.declaredCaseTreeList).build()
+        val caseTreeList = UiStateCase(
+            roundEnv,
+            elementEnumSet,
+            elementSealedSet,
+            this.declaredCaseTreeList,
+            generateFilePath ?: "",
+            generateFilePackageName ?: "",
+        ).build()
         if (caseTreeList.isEmpty()) {
             return true
         }

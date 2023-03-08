@@ -19,7 +19,9 @@ internal class ListDeclaredCase(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
     private val declaredCaseTreeList: List<Tree>,
-) : Case {
+    private val generateFilePath: String,
+    private val generateFilePackageName: String,
+    ) : Case {
 
     override fun build(element: Element, isLast: Boolean): List<Tree> {
 
@@ -38,6 +40,8 @@ internal class ListDeclaredCase(
             elementEnumSet,
             elementSealedSet,
             declaredCaseTreeList,
+            generateFilePath,
+            generateFilePackageName,
         ).buildCompleteCases(root)
 
         /**
@@ -52,6 +56,8 @@ internal class ListDeclaredCase(
         SourceFileGenerator(
             elementEnumSet,
             elementSealedSet,
+            generateFilePath,
+            generateFilePackageName,
             "List"
         ).generateSourceFile(root)
 

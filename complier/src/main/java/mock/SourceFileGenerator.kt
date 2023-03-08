@@ -16,6 +16,7 @@ import mock.util.isSealed
 import java.io.File
 import java.util.*
 import javax.lang.model.element.Element
+import javax.tools.Diagnostic
 
 /**
  * 代码生成器
@@ -23,26 +24,25 @@ import javax.lang.model.element.Element
 internal class SourceFileGenerator(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
+    private val generateFilePath: String,
+    private val generateFilePackageName: String,
     private val fileNameType: String
 ) {
 
-    private val dir = File("/Users/zhanghanyu01/Documents/GitHub/UiTest/app/src/main/java")
-//    private val dir = File("/Users/zhanghanyu01/Desktop/temp3/baidu/youavideo/android/app/src/androidTest/java")
-//    private val dir = File("/Users/zhanghanyu01/Desktop/temp3/baidu/youavideo/android/business_home/src/androidTest/java") // todo
+    private val dir = File(generateFilePath)
 
     fun generateSourceFiles(treeList: List<Tree>) {
 
 //        dir.deleteRecursively()
 
         treeList.forEach {
-//            messager.printMessage(Diagnostic.Kind.NOTE, "generateSourceFiles")
             generateSourceFile(it)
         }
     }
 
     fun generateSourceFile(caseTree: Tree) {
         // 写出 kt文件名
-        val file = FileSpec.builder("com.zhy.demo.mock", "${caseTree.property.value}${fileNameType}")
+        val file = FileSpec.builder(generateFilePackageName, "${caseTree.property.value}${fileNameType}")
 
         file.generateVal(caseTree)
         file.generateList(caseTree)
@@ -50,6 +50,7 @@ internal class SourceFileGenerator(
         // 生成目录；用于写入
         dir.mkdirs()
         file.build().writeTo(dir)
+        messager.printMessage(Diagnostic.Kind.WARNING, "SourceFileGenerator ${dir.absoluteFile}")
     }
 
     private fun FileSpec.Builder.generateVal(caseTree: Tree) {

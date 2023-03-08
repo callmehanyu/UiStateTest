@@ -36,6 +36,8 @@ internal class CaseFactory(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
     private val declaredCaseTreeList: List<Tree>,
+    private val generateFilePath: String,
+    private val generateFilePackageName: String,
 ) {
 
     fun buildCompleteCases(tree: Tree) {
@@ -126,7 +128,7 @@ internal class CaseFactory(
         return if (genericsElement == null) {
             ListNativeCase(classDef).build(element, isLast)
         } else {
-            ListDeclaredCase(elementEnumSet, elementSealedSet, declaredCaseTreeList)
+            ListDeclaredCase(elementEnumSet, elementSealedSet, declaredCaseTreeList, generateFilePath, generateFilePackageName)
                 .build(element, isLast)
         }
     }
