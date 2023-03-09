@@ -22,9 +22,12 @@ private const val UI_STATE = "uiState"
 /**
  * 代码生成器
  */
-internal class SourceFileGenerator {
+internal class SourceFileGenerator(
+	private val generateFilePath: String,
+	private val generateFilePackageName: String,
+) {
 
-	private val dir = File("/Users/zhanghanyu01/Documents/GitHub/UiTest/app/src/main/java").apply {
+	private val dir = File(generateFilePath).apply {
 		mkdirs()
 	}
 
@@ -57,7 +60,7 @@ internal class SourceFileGenerator {
 	}
 
 	private fun FileSpec.Builder.addImportList(uiStateList: String): FileSpec.Builder {
-		return this.addImport("com.zhy.demo.mock", uiStateList)
+		return this.addImport(generateFilePackageName, uiStateList)
 			.addImport("com.zhy", R)
 			.addImport("android.content", INTENT)
 			.addImport("android.widget", FRAMELAYOUT)

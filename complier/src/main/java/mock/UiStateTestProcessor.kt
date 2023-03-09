@@ -20,8 +20,8 @@ import javax.lang.model.util.Elements
 import javax.lang.model.util.Types
 
 internal lateinit var messager: Messager
-private const val KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PATH = "uiStateTestGenerateFilePath"
-private const val KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PACKAGE_NAME = "uiStateTestGenerateFilePackageName"
+internal const val KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PATH = "uiStateTestGenerateFilePath"
+internal const val KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PACKAGE_NAME = "uiStateTestGenerateFilePackageName"
 
 internal class UiStateTestProcessor : AbstractProcessor() {
 
@@ -66,7 +66,6 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         val options = processingEnv.options
         generateFilePath = options[KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PATH]
         generateFilePackageName = options[KAPT_ARGUMENTS_ARG_KEY_GENERATE_FILE_PACKAGE_NAME]
-
     }
 
     override fun getSupportedSourceVersion(): SourceVersion {
