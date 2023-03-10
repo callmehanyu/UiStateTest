@@ -1,4 +1,4 @@
-package com.zhy.demo.mock
+package com.zhy.uistate
 
 import com.zhy.unittest.TestUiStateLimit5
 import kotlin.collections.List

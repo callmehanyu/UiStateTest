@@ -1,4 +1,4 @@
-package com.base.bitmap
+package com.zhy.bitmap
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -28,22 +28,6 @@ class CustomCompress {
         return sampleCompress(source, maxPixel)?.let {
             matrixCompress(it, maxPixel)?.let {
                 qualityAndSampleCompress(it, maxSize, format)
-            }
-        }
-    }
-
-
-    /**
-     * 压缩得到bitmap
-     * @maxSize 最大大小，单位字节
-     * @maxPixel 最大像素，单位pix
-     * */
-    fun <T> compressGetBitmap(source: T, maxPixel: Int, maxSize: Int, format: Bitmap.CompressFormat): Bitmap? {
-        return sampleCompress(source, maxPixel)?.let {
-            matrixCompress(it, maxPixel)?.let {
-                qualityAndSampleCompress(it, maxSize, format)?.let {
-                    BitmapFactory.decodeByteArray(it, 0, it.size, BitmapFactory.Options())
-                }
             }
         }
     }

@@ -18,6 +18,8 @@ import java.util.*
 import javax.lang.model.element.Element
 import javax.tools.Diagnostic
 
+internal const val SOURCE_FILE_PACKAGE = "uistate"
+
 /**
  * 代码生成器
  */
@@ -42,7 +44,7 @@ internal class SourceFileGenerator(
 
     fun generateSourceFile(caseTree: Tree) {
         // 写出 kt文件名
-        val file = FileSpec.builder(generateFilePackageName, "${caseTree.property.value}${fileNameType}")
+        val file = FileSpec.builder("${generateFilePackageName}.$SOURCE_FILE_PACKAGE", "${caseTree.property.value}${fileNameType}")
 
         file.generateVal(caseTree)
         file.generateList(caseTree)

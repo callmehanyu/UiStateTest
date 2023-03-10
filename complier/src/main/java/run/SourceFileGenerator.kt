@@ -9,10 +9,15 @@ import code.ROOT_VIEW
 import code.VAL
 import com.squareup.kotlinpoet.*
 import com.sun.tools.javac.code.Symbol
+import mock.SOURCE_FILE_PACKAGE
 import mock.util.lastName
 import mock.util.toLowerCaseInFirst
 import java.io.File
 import javax.lang.model.element.Element
+
+private const val PACKAGE_LAUNCHER = "launcher"
+private const val PACKAGE_SCREENSHOT = "screenshot"
+private const val PACKAGE_BITMAP = "bitmap"
 
 private const val FUN_NAME_SCREENSHOT = "screenShot"
 private const val LAUNCHER = "launcher"
@@ -45,7 +50,7 @@ internal class SourceFileGenerator(
 		val uiStateType = methodSymbol.params[0].type
 		val uiStateList = "${uiStateType.toString().lastName().toLowerCaseInFirst()}_List"
 
-		FileSpec.builder("com.zhy.launcher.biz", "ScreenShotAllStateOf${className}")
+		FileSpec.builder("$generateFilePackageName.$PACKAGE_LAUNCHER.$PACKAGE_SCREENSHOT", "ScreenShotAllStateOf${className}")
 			.addImportList(uiStateList)
 			.addFunction(generateScreenShotAllStateFunSpec(uiStateList))
 			.addFunction(
@@ -60,14 +65,15 @@ internal class SourceFileGenerator(
 	}
 
 	private fun FileSpec.Builder.addImportList(uiStateList: String): FileSpec.Builder {
-		return this.addImport(generateFilePackageName, uiStateList)
-			.addImport("com.zhy", R)
+		return this.addImport("${generateFilePackageName}.$SOURCE_FILE_PACKAGE", uiStateList)
+			.addImport(generateFilePackageName, R)
 			.addImport("android.content", INTENT)
 			.addImport("android.widget", FRAMELAYOUT)
 			.addImport("android.widget", RELATIVELAYOUT)
-			.addImport("com.base.bitmap", BITMAPUTILS)
+			.addImport("${generateFilePackageName}.$PACKAGE_BITMAP", GETBITMAP)
+			.addImport("${generateFilePackageName}.$PACKAGE_BITMAP", COMPRESSTOFILE)
 			.addImport("kotlinx.coroutines", DELAY)
-			.addImport("com.zhy.launcher", GETUITESTDIRECTORY)
+			.addImport("${generateFilePackageName}.$PACKAGE_LAUNCHER", GETUITESTDIRECTORY)
 	}
 
 	private fun generateScreenShotAllStateFunSpec(uiStateList: String): FunSpec {
@@ -119,10 +125,9 @@ internal class SourceFileGenerator(
 				")\n" +
 				"\n" +
 				"$ROOT_VIEW.$POST {\n" +
-				"    $VAL $BITMAP = $BITMAPUTILS.getBitmapFromView($ROOT_VIEW) ?: $RETURN@$POST\n" +
+				"    $VAL $BITMAP = $ROOT_VIEW.$GETBITMAP() ?: $RETURN@$POST\n" +
 				"    $VAL $DIR = $GETUITESTDIRECTORY()\n" +
-				"    $BITMAPUTILS.compressToFile(\n" +
-				"        $BITMAP,\n" +
+				"    $BITMAP.$COMPRESSTOFILE(\n" +
 				"        $DIR.absolutePath + \"/${activityQualifiedNamePlus}_screenShot_$${INDEX}$JPG\"\n" +
 				"    )\n" +
 				"}\n" +
@@ -132,7 +137,7 @@ internal class SourceFileGenerator(
 	private fun FunSpec.Builder.addParameterOfLauncher(): FunSpec.Builder {
 		return addParameter(
 			LAUNCHER,
-			ClassName.bestGuess("com.zhy.launcher.UiTestLauncherActivity")
+			ClassName.bestGuess("${generateFilePackageName}.$PACKAGE_LAUNCHER.UiTestLauncherActivity")
 		)
 	}
 

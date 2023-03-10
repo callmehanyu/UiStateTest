@@ -22,7 +22,7 @@ android {
         kapt {
             arguments {
                 arg("uiStateTestGenerateFilePath", "${project.projectDir}/src/main/java/")
-                arg("uiStateTestGenerateFilePackageName", "com.zhy.demo.mock")
+                arg("uiStateTestGenerateFilePackageName", "com.zhy")
             }
         }
     }

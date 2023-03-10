@@ -1,13 +1,14 @@
-package com.zhy.launcher.biz
+package com.zhy.launcher.screenshot
 
 import android.content.Intent
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
-import com.base.bitmap.BitmapUtils
 import com.zhy.R
-import com.zhy.demo.mock.testUiState_List
+import com.zhy.bitmap.compressToFile
+import com.zhy.bitmap.getBitmap
 import com.zhy.launcher.UiTestLauncherActivity
 import com.zhy.launcher.getUiTestDirectory
+import com.zhy.uistate.testUiState_List
 import com.zhy.unittest.TestUiState
 import kotlin.Int
 import kotlin.Unit
@@ -41,10 +42,9 @@ internal suspend fun screenShot(
       )
 
       rootView.post {
-          val bitmap = BitmapUtils.getBitmapFromView(rootView) ?: return@post
+          val bitmap = rootView.getBitmap() ?: return@post
           val dir = getUiTestDirectory()
-          BitmapUtils.compressToFile(
-              bitmap,
+          bitmap.compressToFile(
               dir.absolutePath + "/com_zhy_demo_TestActivity_screenShot_$index.jpg"
           )
       }
