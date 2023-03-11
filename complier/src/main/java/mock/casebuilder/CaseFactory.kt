@@ -44,34 +44,32 @@ internal class CaseFactory(
         val list = tree.property.element.enclosedElements
             .filter { it.kind == ElementKind.FIELD }
         list.forEach { enclosedElement ->
-            enclosedElement.getAnnotation(UiStateTestUnique::class.java)?.let {
-                buildCasesWhenUnique(enclosedElement, tree, it, false)
-            }
-            enclosedElement.getAnnotation(UiStateTestCustomString::class.java)?.let {
-                buildCasesWhenCustomString(enclosedElement, tree, it.customString, false)
-            }
-            enclosedElement.getAnnotation(UiStateTestCustomInt::class.java)?.let {
-                buildCasesWhenCustomInt(enclosedElement, tree, it.customInt, false)
-            }
-            enclosedElement.getAnnotation(UiStateTestCustomDeclared::class.java)?.let {
-                buildCasesWhenCustomDeclared(enclosedElement, tree, it.instanceToString, false)
-            }
+            buildCasesPerTree(enclosedElement, tree, false)
         }
     }
 
-    fun buildCompleteCasesDeclared(tree: Tree) {
+    fun buildCompleteCasesWhenDeclared(tree: Tree) {
         val list = tree.property.element.enclosedElements
             .filter { it.kind == ElementKind.FIELD }
         list.forEachIndexed { index, enclosedElement ->
-
             val isLast = index == list.lastIndex
-
-            val annotation = enclosedElement.getAnnotation(UiStateTestUnique::class.java)
-            if (annotation != null) {
-                buildCasesWhenUnique(enclosedElement, tree, annotation, isLast)
-            }
+            buildCasesPerTree(enclosedElement, tree, isLast)
         }
-//        messager.printMessage(Diagnostic.Kind.NOTE, treeRoot.printAllString().joinToString(";"))
+    }
+
+    private fun buildCasesPerTree(enclosedElement: Element, tree: Tree, isLast: Boolean) {
+        enclosedElement.getAnnotation(UiStateTestUnique::class.java)?.let {
+            buildCasesWhenUnique(enclosedElement, tree, it, isLast)
+        }
+        enclosedElement.getAnnotation(UiStateTestCustomString::class.java)?.let {
+            buildCasesWhenCustomString(enclosedElement, tree, it.customString, isLast)
+        }
+        enclosedElement.getAnnotation(UiStateTestCustomInt::class.java)?.let {
+            buildCasesWhenCustomInt(enclosedElement, tree, it.customInt, isLast)
+        }
+        enclosedElement.getAnnotation(UiStateTestCustomDeclared::class.java)?.let {
+            buildCasesWhenCustomDeclared(enclosedElement, tree, it.instanceToString, isLast)
+        }
     }
 
     private fun buildCasesWhenUnique(

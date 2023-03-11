@@ -93,7 +93,6 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         annotations.add(UiStateTestLimitSealed::class.java.canonicalName)
         annotations.add(com.mock.annotation.limit.Sealed::class.java.canonicalName)
 
-//        annotations.add(UiStateTestCollection::class.java.canonicalName)
         annotations.add(UiStateTestCustomString::class.java.canonicalName)
         annotations.add(UiStateTestCustomInt::class.java.canonicalName)
         annotations.add(UiStateTestCustomDeclared::class.java.canonicalName)
@@ -171,7 +170,7 @@ internal class UiStateTestProcessor : AbstractProcessor() {
                         isLast = false
                     )
                 )
-                caseFactory.buildCompleteCasesDeclared(root)
+                caseFactory.buildCompleteCasesWhenDeclared(root)
                 root
             }
             .toList()

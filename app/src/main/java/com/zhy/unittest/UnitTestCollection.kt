@@ -1,6 +1,5 @@
 package com.zhy.unittest
 
-import android.content.Context
 import android.graphics.Bitmap
 import com.mock.annotation.UiStateTest
 import com.mock.annotation.UiStateTestDeclared
@@ -25,6 +24,8 @@ data class TestUiState(
     @UiStateTestCustomString("asdf")
     val btn1String: String? = "init",
     @UiStateTestUnique
+    val vh: VHParam = VHParam(444, "hhh"),
+    @UiStateTestUnique
     val rvList: List<VHParam> = emptyList(),
     @UiStateTestCustomDeclared("com.zhy.uistate.bitmap")
     val bmp: Bitmap? = null,
@@ -35,29 +36,7 @@ data class TestUiState(
         ]
     )
     val bmpList: List<Bitmap?> = emptyList(),
-) {
-
-//    override fun equalsUnique(other: Any?): Boolean {
-//        Log.d("needCollect", "equalsUnique")
-//
-//        if (this === other) return true
-//        if (javaClass != other?.javaClass) return false
-//        if (other !is TestUiStateCollection) return false
-//
-//        if (myEnum != other.myEnum) return false
-//        if (hisEnum != other.hisEnum) return false
-//
-//        return true
-//    }
-
-//    override fun hasTodo(): Boolean {
-////        if (tv1Cnt is Nothing) {
-////            throw Exception()
-////        }
-//        return true
-//    }
-
-}
+)
 
 @UiStateTestDeclared
 data class VHParam(

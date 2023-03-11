@@ -1,6 +1,5 @@
 package mock
 
-import mock.casebuilder.TODO_STRING
 import mock.property.Property
 import com.squareup.kotlinpoet.ClassName
 import com.squareup.kotlinpoet.CodeBlock
@@ -16,7 +15,6 @@ import mock.util.isSealed
 import java.io.File
 import java.util.*
 import javax.lang.model.element.Element
-import javax.tools.Diagnostic
 
 internal const val SOURCE_FILE_PACKAGE = "uistate"
 
@@ -34,9 +32,6 @@ internal class SourceFileGenerator(
     private val dir = File(generateFilePath)
 
     fun generateSourceFiles(treeList: List<Tree>) {
-
-//        dir.deleteRecursively()
-
         treeList.forEach {
             generateSourceFile(it)
         }
@@ -52,12 +47,9 @@ internal class SourceFileGenerator(
         // 生成目录；用于写入
         dir.mkdirs()
         file.build().writeTo(dir)
-        messager.printMessage(Diagnostic.Kind.WARNING, "SourceFileGenerator ${dir.absoluteFile}")
     }
 
     private fun FileSpec.Builder.generateVal(caseTree: Tree) {
-//                messager.printMessage(Diagnostic.Kind.NOTE, "caseTree:"+caseTree.printAllString().joinToString(";"))
-
         caseTree.startTraverseCompletePath().forEachIndexed { index, todoPath ->
             addPropertyWhenTodo(caseTree, todoPath, index)
         }
@@ -79,26 +71,6 @@ internal class SourceFileGenerator(
             .build()
         addProperty(property)
     }
-
-//    private fun addPropertyWhenCollection(
-//        caseTree: Tree,
-//        index: Int,
-//        file: FileSpec.Builder
-//    ) {
-//        val code = "${collectionAnnotation.className}(${collectionAnnotation.property})"
-//        val codeBlock = CodeBlock.builder()
-//            .add(code)
-//            .build()
-//        val property = PropertySpec.builder(
-//            "${caseTree.property.value.toLowerCaseInFirst()}_$index",
-//            ClassName.bestGuess(caseTree.property.element.asType().toString())
-//        )
-//            .addKdoc("${caseTree.property.element.asType()}_$index")
-//            // 初始化值
-//            .initializer(codeBlock)
-//            .build()
-//        file.addProperty(property)
-//    }
 
     private fun generateCodeBlockStack(caseTree: Tree, propertyList: List<Property>): CodeBlock {
         val stack = Stack<Property>()
@@ -159,12 +131,8 @@ internal class SourceFileGenerator(
                     builder.add("\n$property,")
                 }
                 property.element.asType().isClass() -> {
-                    if (property.value == TODO_STRING) {
-                        builder.add("\n${property}")
-                    } else {
-                        builder.add("\n$property(")
-                        stack.push(property)
-                    }
+                    builder.add("\n$property(")
+                    stack.push(property)
                 }
                 property.isLast -> {
                     builder.add("\n$property,\n),")

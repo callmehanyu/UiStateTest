@@ -1,13 +1,18 @@
 package com.zhy.unittest
 
 import com.mock.annotation.UiStateTestDeclared
+import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
+import com.zhy.demo.InterState2
 
 @UiStateTestDeclared
 data class InterState(
-    @UiStateTestUnique(intDef = [9,99])
-    val interInt: Int = 99,
+//    @UiStateTestUnique(intDef = [9,99])
+//    val interInt: Int = 99,
+    @UiStateTestCustomString("内部str")
     val interString: String = "内部str",
+//    @UiStateTestUnique
+//    val inter2: InterState2 = InterState2(),
 )
 
 
