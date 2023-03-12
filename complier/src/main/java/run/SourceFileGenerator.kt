@@ -18,6 +18,7 @@ import javax.lang.model.element.Element
 private const val PACKAGE_LAUNCHER = "launcher"
 private const val PACKAGE_SCREENSHOT = "screenshot"
 private const val PACKAGE_BITMAP = "bitmap"
+private const val PACKAGE_FILE = "file"
 
 private const val FUN_NAME_SCREENSHOT = "screenShot"
 private const val LAUNCHER = "launcher"
@@ -73,7 +74,7 @@ internal class SourceFileGenerator(
 			.addImport("${generateFilePackageName}.$PACKAGE_BITMAP", GETBITMAP)
 			.addImport("${generateFilePackageName}.$PACKAGE_BITMAP", COMPRESSTOFILE)
 			.addImport("kotlinx.coroutines", DELAY)
-			.addImport("${generateFilePackageName}.$PACKAGE_LAUNCHER", GETUITESTDIRECTORY)
+			.addImport("${generateFilePackageName}.$PACKAGE_FILE", GETUITESTDIRECTORY)
 	}
 
 	private fun generateScreenShotAllStateFunSpec(uiStateList: String): FunSpec {
