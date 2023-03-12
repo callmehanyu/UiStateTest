@@ -1,9 +1,11 @@
+@file:Suppress("JAVA_MODULE_DOES_NOT_EXPORT_PACKAGE")
 package mock.casebuilder
 
 import com.mock.annotation.custom.UiStateTestCustomDeclared
 import com.mock.annotation.custom.UiStateTestCustomInt
 import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
+import com.sun.tools.javac.code.Symbol
 import mock.casebuilder.type.*
 import mock.casebuilder.type.BooleanCase
 import mock.casebuilder.type.DeclaredCase
@@ -41,16 +43,14 @@ internal class CaseFactory(
 ) {
 
     fun buildCompleteCases(tree: Tree) {
-        val list = tree.property.element.enclosedElements
-            .filter { it.kind == ElementKind.FIELD }
+        val list = tree.getPropertyList()
         list.forEach { enclosedElement ->
             buildCasesPerTree(enclosedElement, tree, false)
         }
     }
 
     fun buildCompleteCasesWhenDeclared(tree: Tree) {
-        val list = tree.property.element.enclosedElements
-            .filter { it.kind == ElementKind.FIELD }
+        val list = tree.getPropertyList()
         list.forEachIndexed { index, enclosedElement ->
             val isLast = index == list.lastIndex
             buildCasesPerTree(enclosedElement, tree, isLast)
@@ -161,4 +161,16 @@ internal class CaseFactory(
         buildTree(treeRoot, case)
     }
 
+}
+
+/**
+ * 过滤掉 static 属性的原因：
+ * @Parcelize 注解会在类中生成 public static final Parcelable.Creator CREATOR = new Creator();
+ * 该属性不参与测试用例生成，所以通过判断 isStatic 过滤
+ */
+private fun Tree.getPropertyList(): List<Element> {
+    return property.element.enclosedElements.asSequence()
+        .filter { it.kind == ElementKind.FIELD }
+        .filterNot { (it as Symbol.VarSymbol).isStatic }
+        .toList()
 }

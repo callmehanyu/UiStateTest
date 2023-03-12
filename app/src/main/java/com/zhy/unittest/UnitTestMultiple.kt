@@ -1,11 +1,14 @@
 package com.zhy.unittest
 
+import android.os.Parcelable
 import com.mock.annotation.UiStateTestDeclared
 import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
 import com.zhy.demo.InterState2
+import kotlinx.android.parcel.Parcelize
 
 @UiStateTestDeclared
+@Parcelize
 data class InterState(
 //    @UiStateTestUnique(intDef = [9,99])
 //    val interInt: Int = 99,
@@ -13,7 +16,7 @@ data class InterState(
     val interString: String = "内部str",
 //    @UiStateTestUnique
 //    val inter2: InterState2 = InterState2(),
-)
+): Parcelable
 
 
 /**
