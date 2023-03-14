@@ -1,5 +1,7 @@
 package com.zhy.bitmap
 
+import android.content.Context
+import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
@@ -7,10 +9,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.view.View
 import androidx.exifinterface.media.ExifInterface
-import java.io.Closeable
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
+import java.io.*
 
 /**
  * 图像的旋转方向是0
@@ -187,4 +186,20 @@ fun View.getBitmap(): Bitmap? {
     return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)?.apply {
         draw(Canvas(this))
     }
+}
+
+/**
+ * 读取Assets文件夹中的图片资源
+ */
+fun String.getImageFromAssetsFile(context: Context): Bitmap? {
+    var image: Bitmap? = null
+    val am: AssetManager = context.resources.assets
+    try {
+        val inputStream = am.open(this)
+        image = BitmapFactory.decodeStream(inputStream)
+        inputStream.close()
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return image
 }

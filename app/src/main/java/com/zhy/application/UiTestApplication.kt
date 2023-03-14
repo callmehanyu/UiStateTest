@@ -1,12 +1,15 @@
 package com.zhy.application
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 
 class UiTestApplication : Application() {
 
-	var context: Context? = null
-		get() = field!!
+	companion object {
+		@SuppressLint("StaticFieldLeak")
+		lateinit var context: Context
+	}
 
 	override fun onCreate() {
 		super.onCreate()

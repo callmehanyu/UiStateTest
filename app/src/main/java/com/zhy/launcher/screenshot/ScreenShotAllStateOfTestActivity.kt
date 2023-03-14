@@ -4,10 +4,10 @@ import android.content.Intent
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.zhy.R
+import com.zhy.`file`.getUiTestDirectory
 import com.zhy.bitmap.compressToFile
 import com.zhy.bitmap.getBitmap
 import com.zhy.launcher.UiTestLauncherActivity
-import com.zhy.launcher.getUiTestDirectory
 import com.zhy.uistate.testUiState_List
 import com.zhy.unittest.TestUiState
 import kotlin.Int

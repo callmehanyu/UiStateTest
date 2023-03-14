@@ -2,15 +2,12 @@ package com.zhy.launcher
 
 import android.app.ActivityGroup
 import android.os.Bundle
-import android.os.Environment
-import android.os.Environment.getExternalStorageDirectory
 import android.util.Log
 import com.base.applicationScope
 import com.zhy.R
 import com.zhy.demo.TestActivity
-import com.zhy.launcher.biz.screenShotAllState
+import com.zhy.launcher.screenshot.screenShotAllState
 import kotlinx.coroutines.launch
-import java.io.File
 
 private const val TAG = "UiTestLauncherActivity"
 const val LAUNCHER_DEBUG_ACTIVITY_START_KEY_ACTIVITY_LIST = "activity_list"
@@ -38,24 +35,4 @@ internal class UiTestLauncherActivity : ActivityGroup() {
         }
     }
 
-}
-
-/**
- * 获取外部转码目录
- */
-internal fun getUiTestDirectory(): File {
-    val file = File(getExternalStorageDirectory(), "netdiskUiTest")
-    return if (file.exists()) {
-        if (file.isDirectory) {
-            file
-        } else {
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-        }
-    } else {
-        if (file.mkdirs()) {
-            file
-        } else {
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
-        }
-    }
 }

@@ -1,7 +1,9 @@
 package com.zhy.uistate
 
 import android.graphics.Bitmap
-import com.zhy.bitmap.getBitmap
+import com.zhy.application.UiTestApplication
+import com.zhy.bitmap.getImageFromAssetsFile
 
-internal val bitmap: Bitmap? = java.io.File(android.os.Environment.getExternalStorageDirectory(),
-	"/timg.jpeg").getBitmap(true, 50,50)
+internal val bitmap: Bitmap? by lazy {
+	"timg.jpeg".getImageFromAssetsFile(UiTestApplication.context)
+}
