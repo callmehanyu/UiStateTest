@@ -20,7 +20,7 @@
     </activity>
 
     <activity
-      android:name=".launcher.UiTestLauncherActivity"
+      android:name=".launcher.UiStateTestLauncherActivity"
       android:exported="true" >
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

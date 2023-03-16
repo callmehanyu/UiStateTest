@@ -20,6 +20,8 @@ private const val PACKAGE_SCREENSHOT = "screenshot"
 private const val PACKAGE_BITMAP = "bitmap"
 private const val PACKAGE_FILE = "file"
 
+private const val CLASS_LAUNCHER = "UiStateTestLauncherActivity"
+
 private const val FUN_NAME_SCREENSHOT = "screenShot"
 private const val LAUNCHER = "launcher"
 private const val INDEX = "index"
@@ -138,7 +140,7 @@ internal class SourceFileGenerator(
 	private fun FunSpec.Builder.addParameterOfLauncher(): FunSpec.Builder {
 		return addParameter(
 			LAUNCHER,
-			ClassName.bestGuess("${generateFilePackageName}.$PACKAGE_LAUNCHER.UiTestLauncherActivity")
+			ClassName.bestGuess("${generateFilePackageName}.$PACKAGE_LAUNCHER.$CLASS_LAUNCHER")
 		)
 	}
 

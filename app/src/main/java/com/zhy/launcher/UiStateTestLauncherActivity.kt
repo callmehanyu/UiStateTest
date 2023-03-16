@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 private const val TAG = "UiTestLauncherActivity"
 const val LAUNCHER_DEBUG_ACTIVITY_START_KEY_ACTIVITY_LIST = "activity_list"
 
-internal class UiTestLauncherActivity : ActivityGroup() {
+internal class UiStateTestLauncherActivity : ActivityGroup() {
 
     private val testActivityNameList: List<String> by lazy {
         intent.getStringExtra(LAUNCHER_DEBUG_ACTIVITY_START_KEY_ACTIVITY_LIST)?.split(',')
@@ -28,7 +28,7 @@ internal class UiTestLauncherActivity : ActivityGroup() {
             testActivityNameList.forEach {
                 when (it) {
                     TestActivity::class.java.canonicalName -> {
-                        screenShotAllState(this@UiTestLauncherActivity)
+                        screenShotAllState(this@UiStateTestLauncherActivity)
                     }
                 }
             }

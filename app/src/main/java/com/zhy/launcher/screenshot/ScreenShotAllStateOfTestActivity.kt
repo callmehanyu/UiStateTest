@@ -7,21 +7,21 @@ import com.zhy.R
 import com.zhy.`file`.getUiTestDirectory
 import com.zhy.bitmap.compressToFile
 import com.zhy.bitmap.getBitmap
-import com.zhy.launcher.UiTestLauncherActivity
+import com.zhy.launcher.UiStateTestLauncherActivity
 import com.zhy.uistate.testUiState_List
 import com.zhy.unittest.TestUiState
 import kotlin.Int
 import kotlin.Unit
 import kotlinx.coroutines.delay
 
-internal suspend fun screenShotAllState(launcher: UiTestLauncherActivity): Unit {
+internal suspend fun screenShotAllState(launcher: UiStateTestLauncherActivity): Unit {
   testUiState_List.forEachIndexed { index, uiState ->
       	screenShot(launcher, uiState, index)
       }
 }
 
 internal suspend fun screenShot(
-  launcher: UiTestLauncherActivity,
+  launcher: UiStateTestLauncherActivity,
   uiState: TestUiState,
   index: Int
 ): Unit {
