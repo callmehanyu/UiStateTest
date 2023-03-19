@@ -17,6 +17,7 @@ private val PERMISSIONS_STORAGE = arrayOf<String>(
 internal fun checkPermission(activity: Activity) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
         checkPermissionAfterR(activity)
+
     } else {
         checkPermissionBeforeR(activity)
     }

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   package="com.zhy">
 
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+  <!--前台服务-->
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
 
   <application
     android:name=".application.UiTestApplication"
@@ -16,20 +21,28 @@
     android:theme="@style/Theme.Annotation">
 
     <activity android:name="com.zhy.demo.TestActivity">
-
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
     </activity>
 
     <activity
       android:name=".launcher.UiStateTestLauncherActivity"
       android:exported="true" >
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
+
 <!--      <intent-filter>-->
 <!--        <category android:name="android.intent.category.DEFAULT" />-->
 <!--      </intent-filter>-->
     </activity>
+
+    <!--注册截屏需要用到的前台服务-->
+    <service
+      android:name="com.base.screenshot.service.ScreenShortRecordService"
+      android:enabled="true"
+      android:exported="true"
+      android:foregroundServiceType="mediaProjection"/>
+
   </application>
 
 </manifest>
