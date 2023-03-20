@@ -24,7 +24,7 @@ data class TestUiState(
     @UiStateTestCustomString("asdf")
     val btn1String: String? = "init",
     @UiStateTestUnique
-    val vh: VHParam = VHParam(444, "hhh"),
+    val vh: VHParam = VHParam(444, "hhh", 'b'),
     @UiStateTestUnique
     val rvList: List<VHParam> = emptyList(),
     @UiStateTestCustomDeclared("com.zhy.uistate.bitmap")
@@ -43,5 +43,7 @@ data class VHParam(
     @UiStateTestUnique(intDef = [23, 34])
     val a: Int,
     @UiStateTestCustomString("VHParambbb")
-    val b: String
+    val b: String,
+    @UiStateTestCustomDeclared("'A'")
+    val initials: Char,
 )

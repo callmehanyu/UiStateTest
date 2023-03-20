@@ -7,16 +7,18 @@ import kotlin.collections.List
  * com.zhy.unittest.VHParam_0
  */
 public val vHParam_0: VHParam = VHParam(
-    a = 23, 
-    b = "VHParambbb", 
+    a = 23,
+    b = "VHParambbb",
+    initials = 'A',
     )
 
 /**
  * com.zhy.unittest.VHParam_1
  */
 public val vHParam_1: VHParam = VHParam(
-    a = 34, 
-    b = "VHParambbb", 
+    a = 34,
+    b = "VHParambbb",
+    initials = 'A',
     )
 
 /**

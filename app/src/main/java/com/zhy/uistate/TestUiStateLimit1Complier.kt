@@ -7,16 +7,16 @@ import kotlin.collections.List
  * com.zhy.unittest.TestUiStateLimit1_0
  */
 public val testUiStateLimit1_0: TestUiStateLimit1 = TestUiStateLimit1(
-    isFaast = true, 
-    isSllow = true, 
+    isFaast = true,
+    isSllow = true,
     )
 
 /**
  * com.zhy.unittest.TestUiStateLimit1_1
  */
 public val testUiStateLimit1_1: TestUiStateLimit1 = TestUiStateLimit1(
-    isFaast = true, 
-    isSllow = false, 
+    isFaast = true,
+    isSllow = false,
     )
 
 /**

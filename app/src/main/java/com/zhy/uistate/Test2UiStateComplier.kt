@@ -10,7 +10,7 @@ public val test2UiState_0: Test2UiState = Test2UiState(
     inter = com.zhy.unittest.InterState(
     interString = "内部str",
     ),
-    isFast = true, 
+    isFast = true,
     )
 
 /**
@@ -20,7 +20,7 @@ public val test2UiState_1: Test2UiState = Test2UiState(
     inter = com.zhy.unittest.InterState(
     interString = "内部str",
     ),
-    isFast = false, 
+    isFast = false,
     )
 
 /**

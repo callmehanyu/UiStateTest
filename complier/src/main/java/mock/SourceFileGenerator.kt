@@ -117,30 +117,31 @@ internal class SourceFileGenerator(
             if (index == 0) {
                 return@forEachIndexed
             }
-            when {
-                property.element.asType().isEnum(elementEnumSet) -> {
-                    builder.add("\n$property,")
+            if (!property.isLast) {
+                when {
+                    property.element.asType().isEnum(elementEnumSet) -> {
+                        builder.add("\n$property,")
+                    }
+                    property.element.asType().isSealed(elementSealedSet) -> {
+                        builder.add("\n$property,")
+                    }
+                    property.element.asType().isList() -> {
+                        builder.add("\n$property,")
+                    }
+                    (property as? PrimitiveProperty)?.needMock == true -> {
+                        builder.add("\n$property,")
+                    }
+                    property.element.asType().isClass() -> {
+                        builder.add("\n$property(")
+                        stack.push(property)
+                    }
+                    else -> {
+                        builder.add("\n$property,")
+                    }
                 }
-                property.element.asType().isSealed(elementSealedSet) -> {
-                    builder.add("\n$property,")
-                }
-                property.element.asType().isList() -> {
-                    builder.add("\n$property,")
-                }
-                (property as? PrimitiveProperty)?.needMock == true -> {
-                    builder.add("\n$property,")
-                }
-                property.element.asType().isClass() -> {
-                    builder.add("\n$property(")
-                    stack.push(property)
-                }
-                property.isLast -> {
-                    builder.add("\n$property,\n),")
-                    stack.pop()
-                }
-                else -> {
-                    builder.add("\n$property, ")
-                }
+            } else {
+                builder.add("\n$property,\n),")
+                stack.pop()
             }
         }
     }
