@@ -11,7 +11,7 @@ import com.mock.annotation.unique.UiStateTestUnique
 /**
  *
  */
-@UiStateTest
+@UiStateTest(isOpen = true)
 data class TestUiState(
 //    @UiStateTestLimitEnum([com.mock.annotation.limit.Enum(value = "CHRISTMAS", limitIdList = ["chinses"])])
     @UiStateTestUnique

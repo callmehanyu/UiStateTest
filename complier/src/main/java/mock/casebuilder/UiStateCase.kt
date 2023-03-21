@@ -62,7 +62,11 @@ internal class UiStateCase(
     private fun buildUiStateTestTreeList(roundEnv: RoundEnvironment): List<Tree> =
         roundEnv.getElementsAnnotatedWith(UiStateTest::class.java)
             .asSequence()
-            .filter { it.kind.isClass && it is TypeElement }
+            .filter {
+                it.getAnnotation(UiStateTest::class.java).isOpen
+                        && it.kind.isClass
+                        && it is TypeElement
+            }
             .map {
                 val root = Tree(PrimitiveProperty(it, it.simpleName.toString(), isLast = true))
                 caseBuilder.buildCompleteCases(root)
