@@ -18,10 +18,10 @@ uploadArchives {
     repositories.mavenDeployer {
         repository(url: uri('../local-maven'))
         pom.project {
-            name 'annotation'
-            description 'annotation'
+            name 'uiStateTestAnnotation'
+            description 'uiStateTestAnnotation'
             groupId "com.zhy"
-            artifactId 'annotation'
+            artifactId 'uiStateTestAnnotation'
             version '0.0.1'
         }
     }
