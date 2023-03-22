@@ -1,4 +1,4 @@
-package com.zhy.uistate
+package com.zhy.uistate.app
 
 import com.zhy.unittest.TestUiStateLimit1
 import kotlin.collections.List

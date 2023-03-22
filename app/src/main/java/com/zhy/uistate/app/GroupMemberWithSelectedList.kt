@@ -1,4 +1,4 @@
-package com.zhy.uistate
+package com.zhy.uistate.app
 
 import com.zhy.demo.GroupMemberWithSelected
 import kotlin.collections.List

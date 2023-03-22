@@ -1,4 +1,4 @@
-package com.zhy.uistate
+package com.zhy.uistate.app
 
 import com.zhy.demo.GroupManagerAddUiState
 import kotlin.collections.List

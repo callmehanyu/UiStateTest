@@ -9,7 +9,6 @@ import code.ROOT_VIEW
 import code.VAL
 import com.squareup.kotlinpoet.*
 import com.sun.tools.javac.code.Symbol
-import mock.SOURCE_FILE_PACKAGE
 import mock.util.lastName
 import mock.util.toLowerCaseInFirst
 import java.io.File
@@ -68,7 +67,7 @@ internal class SourceFileGenerator(
 	}
 
 	private fun FileSpec.Builder.addImportList(uiStateList: String): FileSpec.Builder {
-		return this.addImport("${generateFilePackageName}.$SOURCE_FILE_PACKAGE", uiStateList)
+		return this.addImport(generateFilePackageName, uiStateList)
 			.addImport(generateFilePackageName, R)
 			.addImport("android.content", INTENT)
 			.addImport("android.widget", FRAMELAYOUT)
