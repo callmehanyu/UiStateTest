@@ -18,6 +18,7 @@ import javax.lang.model.element.Element
 internal class ListDeclaredCase(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
+    private val elementsDeclaredSet: Set<Element>,
     private val declaredCaseTreeList: List<Tree>,
     private val generateFilePath: String,
     private val generateFilePackageName: String,
@@ -28,9 +29,9 @@ internal class ListDeclaredCase(
         /**
          * 获取泛型的element
          */
-        val genericsElement = declaredCaseTreeList
-            .find { it.property.element.asType().toString() == element.asType().getGenerics() }
-            ?.property?.element ?: return emptyList()
+        val genericsElement = elementsDeclaredSet
+            .find { it.asType().toString() == element.asType().getGenerics() }
+            ?: return emptyList()
 
         /**
          * 1.建树
@@ -39,6 +40,7 @@ internal class ListDeclaredCase(
         CaseFactory(
             elementEnumSet,
             elementSealedSet,
+            elementsDeclaredSet,
             declaredCaseTreeList,
             generateFilePath,
             generateFilePackageName,

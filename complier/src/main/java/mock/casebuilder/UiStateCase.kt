@@ -17,6 +17,7 @@ internal class UiStateCase(
     private val roundEnv: RoundEnvironment,
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
+    private val elementsDeclaredSet: Set<Element>,
     private val declaredCaseTreeList: List<Tree>,
     private val generateFilePath: String,
     private val generateFilePackageName: String,
@@ -26,6 +27,7 @@ internal class UiStateCase(
         CaseFactory(
             elementEnumSet,
             elementSealedSet,
+            elementsDeclaredSet,
             declaredCaseTreeList,
             generateFilePath,
             generateFilePackageName,

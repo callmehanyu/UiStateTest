@@ -40,6 +40,7 @@ internal class UiStateTestProcessor : AbstractProcessor() {
         CaseFactory(
             elementEnumSet,
             elementSealedSet,
+            elementsDeclaredSet,
             declaredCaseTreeList,
             generateFilePath ?: "",
             generateFilePackageName ?: ""
@@ -117,6 +118,7 @@ internal class UiStateTestProcessor : AbstractProcessor() {
             roundEnv,
             elementEnumSet,
             elementSealedSet,
+            elementsDeclaredSet,
             this.declaredCaseTreeList,
             generateFilePath ?: "",
             generateFilePackageName ?: "",

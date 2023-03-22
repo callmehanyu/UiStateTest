@@ -14,7 +14,7 @@ java {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // todo 打包时需要切换为 aar 依赖
-    implementation 'com.zhy:annotation:0.0.1'
+    implementation 'com.zhy:uiStateTestAnnotation:0.0.1'
 //    implementation project(path: ':annotation')
     implementation 'com.squareup:javapoet:1.13.0'
     implementation 'com.squareup:kotlinpoet:1.7.2'

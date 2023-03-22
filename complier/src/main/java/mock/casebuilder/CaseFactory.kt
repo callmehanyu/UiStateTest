@@ -37,6 +37,7 @@ internal const val TODO_STRING = "TODO()"
 internal class CaseFactory(
     private val elementEnumSet: Set<Element>,
     private val elementSealedSet: Set<Element>,
+    private val elementsDeclaredSet: Set<Element>,
     private val declaredCaseTreeList: List<Tree>,
     private val generateFilePath: String,
     private val generateFilePackageName: String,
@@ -119,15 +120,20 @@ internal class CaseFactory(
         /**
          * 获取泛型的element
          */
-        val genericsElement = declaredCaseTreeList
-            .find { it.property.element.asType().toString() == element.asType().getGenerics() }
-            ?.property?.element
+        val hasUiStateTestDeclaredAnnotation = elementsDeclaredSet
+            .any { it.asType().toString() == element.asType().getGenerics() }
 
-        return if (genericsElement == null) {
-            ListNativeCase(classDef).build(element, isLast)
+        return if (hasUiStateTestDeclaredAnnotation) {
+            ListDeclaredCase(
+                elementEnumSet,
+                elementSealedSet,
+                elementsDeclaredSet,
+                declaredCaseTreeList,
+                generateFilePath,
+                generateFilePackageName,
+            ).build(element, isLast)
         } else {
-            ListDeclaredCase(elementEnumSet, elementSealedSet, declaredCaseTreeList, generateFilePath, generateFilePackageName)
-                .build(element, isLast)
+            ListNativeCase(classDef).build(element, isLast)
         }
     }
 
