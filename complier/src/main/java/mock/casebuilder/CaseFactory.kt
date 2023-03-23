@@ -150,7 +150,7 @@ internal class CaseFactory(
     /**
      *
      */
-    private fun buildCasesWhenCustomInt(element: Element, treeRoot: Tree, customInt: Int, isLast: Boolean) {
+    private fun buildCasesWhenCustomInt(element: Element, treeRoot: Tree, customInt: Long, isLast: Boolean) {
         val property = PrimitiveProperty(element, customInt.toString(), isLast)
         val tree = Tree(property)
         val case = listOf(tree)
