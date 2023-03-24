@@ -119,20 +119,30 @@ internal class SourceFileGenerator(
                 return@forEachIndexed
             }
             if (!property.isLast) {
+                val type = property.element.asType()
                 when {
-                    property.element.asType().isEnum(elementEnumSet) -> {
+                    type.isBoolean() -> {
                         builder.add("\n$property,")
                     }
-                    property.element.asType().isSealed(elementSealedSet) -> {
+                    type.isInt() -> {
                         builder.add("\n$property,")
                     }
-                    property.element.asType().isList() -> {
+                    type.isString() -> {
+                        builder.add("\n$property,")
+                    }
+                    type.isEnum(elementEnumSet) -> {
+                        builder.add("\n$property,")
+                    }
+                    type.isSealed(elementSealedSet) -> {
+                        builder.add("\n$property,")
+                    }
+                    type.isList() -> {
                         builder.add("\n$property,")
                     }
                     (property as? PrimitiveProperty)?.needMock == true -> {
                         builder.add("\n$property,")
                     }
-                    property.element.asType().isClass() -> {
+                    type.isClass() -> {
                         builder.add("\n$property(")
                         stack.push(property)
                     }

@@ -43,7 +43,16 @@ data class Test2UiState(
 	val inter: InterState = InterState(),
 
 	@UiStateTestUnique
-	val isFast: Boolean,
+	val isFast: Boolean?,
+
+	@UiStateTestUnique(intDef = [0,1])
+	val aaa: Byte?,
+	@UiStateTestUnique(intDef = [2,3])
+	val bbb: Short?,
+	@UiStateTestUnique(intDef = [4,5])
+	val ccc: Int?,
+	@UiStateTestUnique(intDef = [6,7])
+	val ddd: Long?,
 )
 
 

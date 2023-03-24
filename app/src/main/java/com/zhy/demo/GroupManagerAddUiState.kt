@@ -26,7 +26,7 @@ data class GroupManagerAddUiState(
 @UiStateTestDeclared
 data class SelectedMembersDialog(
 	@UiStateTestUnique
-	val isShow: Boolean = false,
+	val isShow: Boolean? = false,
 	@UiStateTestUnique
 	val memberList: List<GroupMemberWithSelected> = emptyList(),
 )

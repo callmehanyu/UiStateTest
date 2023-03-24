@@ -6,10 +6,8 @@ import com.mock.annotation.limit.Enum
 import mock.casebuilder.TODO_STRING
 import mock.messager
 import mock.util.*
-import mock.util.typeKindInt
 import javax.lang.model.element.Element
 import javax.lang.model.type.MirroredTypeException
-import javax.lang.model.type.TypeKind
 import javax.lang.model.type.TypeMirror
 import javax.tools.Diagnostic
 
@@ -46,11 +44,10 @@ internal class TreePruner(
     private fun recordLimitNode(tree: Tree) {
         val type = tree.property.element.asType()
         when {
-            type.kind == TypeKind.BOOLEAN -> {
-//                messager.printMessage(Diagnostic.Kind.NOTE, "recordLimitNode ${tree.property.element}")
+            type.isBoolean() -> {
                 recordLimitBooleanNode(tree)
             }
-            type.kind in typeKindInt -> {
+            type.isInt() -> {
                 recordLimitIntDefNode(tree)
             }
             type.isString() -> {

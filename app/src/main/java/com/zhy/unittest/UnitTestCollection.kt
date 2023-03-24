@@ -9,7 +9,8 @@ import com.mock.annotation.custom.UiStateTestCustomString
 import com.mock.annotation.unique.UiStateTestUnique
 
 /**
- *
+ *  测试ui状态
+ *  @param myEnum 测试枚举
  */
 @UiStateTest(isOpen = true)
 data class TestUiState(

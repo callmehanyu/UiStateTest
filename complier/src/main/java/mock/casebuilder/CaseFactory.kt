@@ -82,10 +82,10 @@ internal class CaseFactory(
 
         val type = element.asType()
         val cases = when {
-            type.kind == TypeKind.BOOLEAN -> {
+            type.isBoolean() -> {
                 BooleanCase().build(element, isLast)
             }
-            type.kind in typeKindInt -> {
+            type.isInt() -> {
                 IntCase(annotation.intDef).build(element, isLast)
             }
             type.isString() -> {

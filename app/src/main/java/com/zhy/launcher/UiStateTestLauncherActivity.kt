@@ -3,6 +3,7 @@ package com.zhy.launcher
 import android.app.ActivityGroup
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import com.base.applicationScope
 import com.zhy.R
 import com.zhy.demo.TestActivity
@@ -22,6 +23,11 @@ internal class UiStateTestLauncherActivity : ActivityGroup() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_ui_test_launcher)
+        findViewById<TextView>(R.id.tv).setOnClickListener {
+            applicationScope.launch {
+                screenShotAllState(this@UiStateTestLauncherActivity)
+            }
+        }
         com.base.perm.checkPermission(this)
         Log.d(TAG, "onCreate: ")
         applicationScope.launch {

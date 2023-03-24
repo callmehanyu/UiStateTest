@@ -65,7 +65,7 @@ class TestActivity : AppCompatActivity() {
 //                e.printStackTrace()
 //                null
 //            }
-            capture()
+//            capture()
 //            screenshot()
 //            val tv1Cnt = viewModel.uiState.value?.tv1Cnt ?: 0
 //            viewModel.uiState.value = viewModel.uiState.value?.copy(tv1Cnt = tv1Cnt + 1)

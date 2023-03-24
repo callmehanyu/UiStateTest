@@ -1,6 +1,8 @@
 package com.zhy.file
 
 import android.os.Environment
+import com.google.gson.Gson
+import org.json.JSONObject
 import java.io.File
 
 /**
@@ -21,4 +23,22 @@ internal fun getUiTestDirectory(): File {
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
         }
     }
+}
+
+fun File.mkdirIfExist() {
+    if (exists()) return
+    mkdirs()
+}
+
+internal inline fun <reified T> T.saveJsonToFile(index: Int, uiStateDir: File) {
+    val uiStateIntroduce = JSONObject().apply {
+        val canonicalName = if (this@saveJsonToFile!!::class.java.canonicalName.isNullOrBlank()) {
+            "uiState"
+        } else {
+            this@saveJsonToFile!!::class.java.canonicalName
+        }
+        put(canonicalName, Gson().toJson(this@saveJsonToFile))
+    }.toString()
+    val file = File(uiStateDir, "$index.txt")
+    file.writeText(uiStateIntroduce)
 }
