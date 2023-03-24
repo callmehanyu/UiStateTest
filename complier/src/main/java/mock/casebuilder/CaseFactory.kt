@@ -22,7 +22,6 @@ import mock.tree.Tree
 import mock.tree.buildTree
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
-import javax.lang.model.type.TypeKind
 import javax.tools.Diagnostic
 
 
@@ -177,6 +176,15 @@ internal class CaseFactory(
 private fun Tree.getPropertyList(): List<Element> {
     return property.element.enclosedElements.asSequence()
         .filter { it.kind == ElementKind.FIELD }
-        .filterNot { (it as Symbol.VarSymbol).isStatic }
+        .filterNot {
+            (it as Symbol.VarSymbol).isStatic || anyOfUiStateTest(it)
+        }
         .toList()
+}
+
+private fun anyOfUiStateTest(element: Element): Boolean {
+    return element.getAnnotation(UiStateTestUnique::class.java) == null
+            && element.getAnnotation(UiStateTestCustomDeclared::class.java) == null
+            && element.getAnnotation(UiStateTestCustomInt::class.java) == null
+            && element.getAnnotation(UiStateTestCustomString::class.java) == null
 }
