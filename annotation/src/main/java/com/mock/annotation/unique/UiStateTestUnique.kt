@@ -9,7 +9,7 @@ package com.mock.annotation.unique
 @Retention(value = AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.FIELD)
 annotation class UiStateTestUnique(
-    val intDef: IntArray = [],
+    val intDef: LongArray = [],
     val stringDef: Array<String> = [],
     val classDef: Array<String> = [],
 )

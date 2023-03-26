@@ -6,7 +6,7 @@ import mock.tree.Tree
 import javax.lang.model.element.Element
 
 internal class IntCase(
-    private val intDef: IntArray,
+    private val intDef: LongArray,
 ) : Case {
     override fun build(element: Element, isLast: Boolean): List<Tree> {
         return intDef.map { Tree(PrimitiveProperty(element, it.toString(), isLast)) }
