@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/collection" />
             <option value="$PROJECT_DIR$/complier" />
+            <option value="$PROJECT_DIR$/complier_empty" />
           </set>
         </option>
       </GradleProjectSettings>

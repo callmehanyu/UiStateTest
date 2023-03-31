@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+    id 'kotlin-kapt'
+    id 'maven'
+}
+
+dependencies {
+    implementation 'com.zhy:uiStateTestAnnotation:0.0.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        repository(url: uri('../local-maven'))
+        pom.project {
+            name 'uiStateTestComplierEmpty'
+            description 'uiStateTestComplierEmpty'
+            groupId "com.zhy"
+            artifactId 'uiStateTestComplierEmpty'
+            version '0.0.1'
+        }
+    }
+}

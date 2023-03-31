@@ -6,6 +6,8 @@
       <module name="Annotation.collection" target="11" />
       <module name="UiState.app" target="11" />
       <module name="UiState.collection" target="11" />
+      <module name="UiStateTest.app" target="11" />
+      <module name="UiStateTest.collection" target="11" />
       <module name="UiTest.app" target="11" />
       <module name="UiTest.collection" target="11" />
     </bytecodeTargetLevel>

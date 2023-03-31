@@ -1,5 +1,6 @@
-include ':complier'
-include ':annotation'
+rootProject.name = "UiStateTest"
 include ':app'
-rootProject.name = "UiTest"
+include ':annotation'
+include ':complier'
+include ':complier_empty'
 include ':collection'
